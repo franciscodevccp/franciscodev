@@ -1,7 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Exportación estática para Cloudflare Pages
+  output: "export",
+
+  // Configurar imágenes para exportación estática
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
