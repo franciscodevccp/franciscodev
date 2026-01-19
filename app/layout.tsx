@@ -8,16 +8,53 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://franciscodev.cl'),
   title: "Francisco Dev | Consultoría y Desarrollo Web en Concepción",
   description: "Transformo el caos manual en control digital. ERPs, aplicaciones web a medida y consultoría tecnológica para pymes en Concepción, Chile.",
   keywords: ["desarrollo web", "ERP", "consultoría IT", "Concepción", "Chile", "software a medida"],
   authors: [{ name: "Francisco Dev" }],
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: "Francisco Dev | Del Caos Manual al Control Digital",
     description: "ERPs, aplicaciones web a medida y consultoría tecnológica para pymes",
+    url: 'https://franciscodev.cl',
+    siteName: 'Francisco Dev',
     type: "website",
     locale: "es_CL",
   },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Francisco Dev | Consultoría y Desarrollo Web',
+    description: 'ERPs, aplicaciones web a medida y consultoría tecnológica para pymes en Concepción',
+  },
+};
+
+// Schema.org JSON-LD para SEO
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Francisco Dev',
+  description: 'Consultoría tecnológica y desarrollo de software a medida para empresas en Concepción, Chile.',
+  url: 'https://franciscodev.cl',
+  telephone: '+56985541349',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Concepción',
+    addressCountry: 'CL',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: -36.8270,
+    longitude: -73.0503,
+  },
+  areaServed: {
+    '@type': 'City',
+    name: 'Concepción',
+  },
+  serviceType: ['Desarrollo Web', 'Sistemas ERP', 'Consultoría IT', 'Aplicaciones a Medida'],
+  priceRange: '$$',
 };
 
 export default function RootLayout({
@@ -27,6 +64,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="scroll-smooth">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
       </body>
