@@ -257,6 +257,137 @@ export default function Home() {
       </section>
 
       {/* ============================================
+          SECCIÓN "MI PROCESO"
+          ============================================ */}
+      <section id="proceso" className="py-24 md:py-32 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden">
+        {/* Background elements */}
+        <div
+          className="absolute top-0 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
+          style={{
+            background: "radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 60%)"
+          }}
+        />
+        <div
+          className="absolute bottom-0 right-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
+          style={{
+            background: "radial-gradient(circle, rgba(6, 182, 212, 0.06) 0%, transparent 60%)"
+          }}
+        />
+
+        <div className="max-w-7xl mx-auto px-6 relative">
+          {/* Header */}
+          <div className="text-center mb-16 reveal">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark text-cyan-400 text-sm font-semibold mb-4">
+              Mi Proceso
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+              Tecnología que se Adapta a
+              <span className="gradient-text"> Tu Negocio</span>
+            </h2>
+            <p className="text-xl text-cyan-400 font-medium mb-4">
+              No al revés.
+            </p>
+            <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+              Nada de plantillas genéricas. Cada solución se diseña desde cero,
+              escuchando tu realidad y construyendo exactamente lo que tu negocio necesita.
+            </p>
+          </div>
+
+          {/* Process Steps */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+            {[
+              {
+                step: "01",
+                title: "Diagnóstico Gratuito",
+                description: "Escucho tu problema real. Identifico dónde pierdes tiempo y dinero hoy.",
+                deliverable: "Resumen de tu problema principal",
+                color: "from-blue-500 to-blue-600"
+              },
+              {
+                step: "02",
+                title: "Diseño a Medida",
+                description: "Dibujo cómo funcionará la solución. Recibes una maqueta visual GRATIS antes de pagar.",
+                deliverable: "Maqueta demo + Presupuesto",
+                color: "from-cyan-500 to-cyan-600",
+                highlight: true
+              },
+              {
+                step: "03",
+                title: "Desarrollo Tecnológico",
+                description: "Desarrollo tu solución con avances semanales. Sin desaparecer por semanas.",
+                deliverable: "Sistema funcionando al 100%",
+                color: "from-purple-500 to-purple-600"
+              },
+              {
+                step: "04",
+                title: "Acompañamiento",
+                description: "Te capacito a ti y tu equipo. Incluye videos explicativos y soporte inicial.",
+                deliverable: "Manuales + Garantía",
+                color: "from-green-500 to-green-600"
+              }
+            ].map((item, index) => (
+              <div
+                key={index}
+                className={`reveal delay-${(index + 1) * 100} group relative`}
+              >
+                <div className={`h-full p-6 rounded-2xl border transition-all duration-300 ${item.highlight
+                  ? "bg-gradient-to-b from-cyan-500/10 to-blue-500/10 border-cyan-500/30 hover:border-cyan-400/50"
+                  : "bg-slate-800/50 border-slate-700/50 hover:border-slate-600"
+                  }`}>
+                  {/* Step number */}
+                  <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} text-white font-bold text-lg mb-4 group-hover:scale-110 transition-transform`}>
+                    {item.step}
+                  </div>
+
+                  {/* Highlight badge */}
+                  {item.highlight && (
+                    <span className="absolute top-4 right-4 px-2 py-1 rounded-full bg-cyan-500 text-white text-xs font-semibold">
+                      ¡GRATIS!
+                    </span>
+                  )}
+
+                  {/* Content */}
+                  <h3 className="text-xl font-bold text-white mb-3">
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-400 text-sm mb-4 leading-relaxed">
+                    {item.description}
+                  </p>
+
+                  {/* Deliverable */}
+                  <div className="flex items-center gap-2 text-sm">
+                    <ArrowRight size={14} className="text-cyan-400" />
+                    <span className="text-cyan-400 font-medium">{item.deliverable}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Bottom message */}
+          <div className="text-center mt-16 reveal">
+            <div className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-800/50 border border-slate-700/50 mb-8">
+              <Check size={20} className="text-green-500" />
+              <span className="text-slate-300">
+                <span className="text-white font-semibold">Sin riesgo:</span> Ves la maqueta antes de comprometerte
+              </span>
+            </div>
+            <div className="block">
+              <a
+                href={whatsappAsesoria}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-lg animate-pulse-glow"
+              >
+                Agendar Diagnóstico Gratis
+                <ArrowRight size={20} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================
           SECCIÓN "SERVICIOS"
           ============================================ */}
       <section id="servicios" className="py-24 md:py-32 bg-slate-50 relative overflow-hidden">
@@ -358,6 +489,318 @@ export default function Home() {
       </section>
 
       {/* ============================================
+          SECCIÓN "SOBRE MÍ"
+          ============================================ */}
+      <section id="sobre-mi" className="py-24 md:py-32 bg-white relative overflow-hidden">
+        {/* Background pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, var(--slate-800) 1px, transparent 0)`,
+            backgroundSize: "40px 40px"
+          }}
+        />
+
+        <div className="max-w-6xl mx-auto px-6 relative">
+          <div className="grid lg:grid-cols-5 gap-12 lg:gap-16 items-center">
+            {/* Left: Image */}
+            <div className="lg:col-span-2 reveal">
+              <div className="relative flex justify-center lg:justify-end">
+                {/* Decorative ring */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-72 h-72 md:w-80 md:h-80 rounded-full border-2 border-dashed border-blue-200 animate-rotate-slow" />
+                </div>
+
+                {/* Profile image */}
+                <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl">
+                  <Image
+                    src="/sobremi.png"
+                    alt="Francisco - Consultor IT"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                {/* Floating badge */}
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-semibold rounded-full shadow-lg">
+                  Consultor IT
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Content */}
+            <div className="lg:col-span-3 reveal delay-200">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-6">
+                Sobre Mí
+              </span>
+
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
+                Hola, soy <span className="gradient-text">Francisco</span>
+              </h2>
+
+              <div className="space-y-4 text-slate-600 leading-relaxed">
+                <p>
+                  Más que un desarrollador de software, soy un <span className="text-slate-900 font-medium">consultor apasionado</span> por transformar el caos operativo en soluciones digitales eficientes y rentables.
+                </p>
+
+                <p className="text-lg font-medium text-blue-600 border-l-4 border-blue-500 pl-4 py-2 bg-blue-50 rounded-r-lg">
+                  &ldquo;Tecnología que se adapta a tu negocio, no al revés.&rdquo;
+                </p>
+
+                <p>
+                  No creo en vender &ldquo;enlatados&rdquo;. Me dedico a <span className="text-slate-900 font-medium">escuchar y entender a fondo</span> los desafíos únicos de tu empresa —ya seas constructor, mueblista o comerciante— antes de escribir una sola línea de código.
+                </p>
+
+                <p>
+                  Mi objetivo final es simple: <span className="text-slate-900 font-medium">liberar a ti y a tu equipo</span> de las tareas manuales y repetitivas mediante automatización inteligente, devolviéndoles el tiempo valioso para enfocarse en lo que realmente importa: <span className="gradient-text font-semibold">hacer crecer el negocio</span>.
+                </p>
+              </div>
+
+              {/* CTA */}
+              <div className="mt-8">
+                <a
+                  href={whatsappContacto}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary"
+                >
+                  <WhatsAppIcon size={20} />
+                  Conversemos
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      {/* ============================================
+          SECCIÓN "CASOS DE ÉXITO"
+          ============================================ */}
+      <section className="py-24 md:py-32 bg-slate-50 relative overflow-hidden">
+        {/* Background pattern */}
+        <div
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `radial-gradient(circle at 1px 1px, var(--slate-800) 1px, transparent 0)`,
+            backgroundSize: "40px 40px"
+          }}
+        />
+
+        <div className="max-w-7xl mx-auto px-6 relative">
+          <div className="text-center mb-16 reveal">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-4">
+              Proyectos en Desarrollo
+            </span>
+            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
+              Portafolio de <span className="gradient-text">Desarrollos</span>
+            </h2>
+            <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+              Soluciones tecnológicas en las que estoy trabajando actualmente
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Proyecto 1: Lavado de Oído CCP */}
+            <div className="reveal group">
+              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
+                {/* Image */}
+                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/proyecto1.webp")}>
+                  <Image
+                    src="/proyectos/proyecto1.webp"
+                    alt="Lavado de Oído CCP - Sistema de Reservas"
+                    width={700}
+                    height={450}
+                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-full bg-blue-500 text-white text-xs font-semibold">
+                      Salud
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">
+                    Lavado de Oído CCP
+                  </h3>
+                  <p className="text-slate-600 mb-4">
+                    <span className="font-semibold text-slate-800">Agenda Autónoma 24/7.</span> Eliminó el 100% de la gestión telefónica, permitiendo que los pacientes se agenden solos y llenando los cupos automáticamente sin intervención del equipo.
+                  </p>
+                  <ul className="space-y-2 text-sm text-slate-500">
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Reservas sin intervención humana
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Cero llamadas perdidas
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Recordatorios automáticos
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Proyecto 2: Innovautos */}
+            <div className="reveal delay-200 group">
+              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
+                {/* Image */}
+                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/proyecto2.webp")}>
+                  <Image
+                    src="/proyectos/proyecto2.webp"
+                    alt="Innovautos - Plataforma de Vehículos"
+                    width={700}
+                    height={450}
+                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-full bg-red-500 text-white text-xs font-semibold">
+                      Automotriz
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">
+                    Innovautos
+                  </h3>
+                  <p className="text-slate-600 mb-4">
+                    <span className="font-semibold text-slate-800">Venta Digital Acelerada.</span> Centralizó todo el stock en una plataforma rápida, reduciendo el tiempo de decisión del cliente y conectando la venta directa por WhatsApp en un solo clic.
+                  </p>
+                  <ul className="space-y-2 text-sm text-slate-500">
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Catálogo siempre actualizado
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Contacto directo a un clic
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Diseño de alta conversión
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Proyecto 3: ERP Innovautos */}
+            <div className="reveal delay-300 group">
+              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
+                {/* Image */}
+                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/proyecto3.webp")}>
+                  <Image
+                    src="/proyectos/proyecto3.webp"
+                    alt="ERP Innovautos - Panel de Administración"
+                    width={700}
+                    height={450}
+                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-full bg-purple-500 text-white text-xs font-semibold">
+                      ERP / Dashboard
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">
+                    ERP Taller Innovautos
+                  </h3>
+                  <p className="text-slate-600 mb-4">
+                    <span className="font-semibold text-slate-800">Control Operativo Total.</span> Digitalizó el flujo completo del taller, eliminando el uso de papel desordenado y evitando pérdidas de dinero por errores en inventario o caja chica.
+                  </p>
+                  <ul className="space-y-2 text-sm text-slate-500">
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Finanzas en tiempo real
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Adiós al Excel y papel
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Trazabilidad de trabajos
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Proyecto 4: Agüita Sabor */}
+            <div className="reveal delay-400 group">
+              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
+                {/* Image */}
+                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/aguitasabor.webp")}>
+                  <Image
+                    src="/proyectos/aguitasabor.webp"
+                    alt="Agüita Sabor - Carta Digital"
+                    width={700}
+                    height={450}
+                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-full bg-orange-500 text-white text-xs font-semibold">
+                      Gastronomía
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">
+                    Agüita Sabor
+                  </h3>
+                  <p className="text-slate-600 mb-4">
+                    <span className="font-semibold text-slate-800">Carta Digital Inteligente.</span> Digitalizó la experiencia de venta eliminando los menús físicos y PDFs lentos, ofreciendo un catálogo interactivo de carga instantánea que facilita la decisión de compra.
+                  </p>
+                  <ul className="space-y-2 text-sm text-slate-500">
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Carga ultra-rápida (Sin descargas)
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Precios actualizados en tiempo real
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Check size={14} className="text-green-500" />
+                      Diseño &quot;Mobile First&quot; de alto impacto
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="text-center mt-16 reveal">
+            <p className="text-slate-600 mb-6">
+              ¿Quieres ver tu empresa aquí?
+            </p>
+            <a
+              href={whatsappProyecto}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary text-lg"
+            >
+              Comenzar mi Proyecto
+              <ArrowRight size={20} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================
           SECCIÓN "TECH STACK"
           ============================================ */}
       <section className="py-16 bg-gradient-to-b from-slate-900 to-slate-950 relative overflow-hidden">
@@ -372,7 +815,6 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 relative">
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark text-cyan-400 text-sm font-medium mb-4">
-
               Tecnologías Modernas
             </span>
             <h3 className="text-2xl md:text-3xl font-bold text-white">
@@ -453,184 +895,79 @@ export default function Home() {
       </section>
 
       {/* ============================================
-          SECCIÓN "CASOS DE ÉXITO"
+          SECCIÓN "PREGUNTAS FRECUENTES"
           ============================================ */}
-      <section className="py-24 md:py-32 bg-slate-50 relative overflow-hidden">
-        {/* Background pattern */}
-        <div
-          className="absolute inset-0 opacity-[0.03]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, var(--slate-800) 1px, transparent 0)`,
-            backgroundSize: "40px 40px"
-          }}
-        />
-
-        <div className="max-w-7xl mx-auto px-6 relative">
+      <section id="faq" className="py-24 md:py-32 bg-gradient-to-b from-slate-50 to-white relative overflow-hidden">
+        <div className="max-w-4xl mx-auto px-6 relative">
           <div className="text-center mb-16 reveal">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-4">
-              Proyectos en Desarrollo
+              Resolviendo Dudas
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
-              Portafolio de <span className="gradient-text">Desarrollos</span>
+              Preguntas <span className="gradient-text">Frecuentes</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Soluciones tecnológicas en las que estoy trabajando actualmente
+              Las dudas más comunes que tienen los empresarios antes de dar el salto digital
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Proyecto 1: Lavado de Oído CCP */}
-            <div className="reveal group">
-              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
-                {/* Image */}
-                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/proyecto1.webp")}>
-                  <Image
-                    src="/proyectos/proyecto1.webp"
-                    alt="Lavado de Oído CCP - Sistema de Reservas"
-                    width={700}
-                    height={450}
-                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-blue-500 text-white text-xs font-semibold">
-                      Salud
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    Lavado de Oído CCP
-                  </h3>
-                  <p className="text-slate-600 mb-4">
-                    Sistema completo de reservas online con calendario interactivo,
-                    formulario de pacientes y panel administrativo.
+          <div className="space-y-4">
+            {[
+              {
+                question: "¿Tengo que ser experto en computación para usar lo que construyes?",
+                answer: "No. Mi trabajo es traducir procesos complejos en pantallas simples. Diseño interfaces intuitivas (similares a usar una App bancaria) para que tú y tu equipo las usen desde el primer día sin complicaciones."
+              },
+              {
+                question: "¿Puedo ver la información desde mi celular o estando en obra?",
+                answer: "Sí, totalmente. Todo lo que desarrollo es tecnología web responsiva. Podrás controlar tu inventario, ver reportes o gestionar pedidos desde tu celular, tablet o computador, estés donde estés, sin instalar nada extra."
+              },
+              {
+                question: "¿Es muy caro para una PyME?",
+                answer: "Me adapto a tu realidad. Trabajo con un diseño modular: construimos y pagas solo lo que tu presupuesto permite hoy. Podemos empezar con una solución pequeña que resuelva tu problema más urgente y escalarla después."
+              },
+              {
+                question: "¿Qué pasa si algo falla después de la entrega?",
+                answer: "No te dejo solo. Todos mis desarrollos incluyen un periodo de garantía y acompañamiento (Marcha Blanca). Si aparece un error técnico en ese lapso, lo soluciono sin costo. Además, ofrezco planes de soporte para tu tranquilidad a largo plazo."
+              },
+              {
+                question: "¿Puedo justificar este gasto en mi empresa?",
+                answer: "Sí. Estoy formalizado ante el SII. Por cada proyecto emito Boleta de Honorarios Electrónica por servicios profesionales de consultoría y desarrollo, lo que te permite respaldar la inversión y deducirla de los gastos de tu empresa."
+              }
+            ].map((faq, index) => (
+              <details
+                key={index}
+                className="reveal group bg-white rounded-2xl border border-slate-200 hover:border-blue-200 hover:shadow-lg transition-all duration-300"
+              >
+                <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
+                  <span className="text-lg font-semibold text-slate-900 pr-4">
+                    {faq.question}
+                  </span>
+                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center group-open:rotate-180 transition-transform duration-300">
+                    <ChevronDown size={20} />
+                  </span>
+                </summary>
+                <div className="px-6 pb-6 pt-0">
+                  <p className="text-slate-600 leading-relaxed">
+                    {faq.answer}
                   </p>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Reservas automatizadas 24/7
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Panel de administración
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Confirmación por email
-                    </li>
-                  </ul>
                 </div>
-              </div>
-            </div>
-
-            {/* Proyecto 2: Innovautos */}
-            <div className="reveal delay-200 group">
-              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
-                {/* Image */}
-                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/proyecto2.webp")}>
-                  <Image
-                    src="/proyectos/proyecto2.webp"
-                    alt="Innovautos - Plataforma de Vehículos"
-                    width={700}
-                    height={450}
-                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-red-500 text-white text-xs font-semibold">
-                      Automotriz
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    Innovautos
-                  </h3>
-                  <p className="text-slate-600 mb-4">
-                    Plataforma web moderna para venta de vehículos usados con
-                    catálogo interactivo, financiamiento y tasación online.
-                  </p>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Catálogo de vehículos dinámico
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Integración WhatsApp
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Diseño premium responsive
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            {/* Proyecto 3: ERP Innovautos */}
-            <div className="reveal delay-300 group md:col-span-2 lg:col-span-1">
-              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
-                {/* Image */}
-                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/proyecto3.webp")}>
-                  <Image
-                    src="/proyectos/proyecto3.webp"
-                    alt="ERP Innovautos - Panel de Administración"
-                    width={700}
-                    height={450}
-                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-purple-500 text-white text-xs font-semibold">
-                      ERP / Dashboard
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    ERP Taller Innovautos
-                  </h3>
-                  <p className="text-slate-600 mb-4">
-                    Sistema de gestión integral para taller mecánico con control
-                    de servicios, trabajadores y finanzas en tiempo real.
-                  </p>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Control de servicios y calidad
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Gestión de trabajadores
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Estadísticas e ingresos
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
+              </details>
+            ))}
           </div>
 
           {/* CTA */}
           <div className="text-center mt-16 reveal">
             <p className="text-slate-600 mb-6">
-              ¿Quieres ver tu empresa aquí?
+              ¿Tienes otra pregunta?
             </p>
             <a
-              href={whatsappProyecto}
+              href={whatsappContacto}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary text-lg"
             >
-              Comenzar mi Proyecto
-              <ArrowRight size={20} />
+              <WhatsAppIcon size={20} />
+              Pregúntame directamente
             </a>
           </div>
         </div>
@@ -737,12 +1074,8 @@ export default function Home() {
           <div className="w-full h-px bg-gradient-to-r from-transparent via-slate-700 to-transparent mb-8" />
 
           {/* Bottom Bar */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-slate-500 text-sm">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-slate-500 text-sm">
             <span>© {new Date().getFullYear()} Francisco Dev. Todos los derechos reservados.</span>
-            <div className="flex items-center gap-6">
-              <span className="hover:text-cyan-400 transition-colors cursor-pointer">Términos</span>
-              <span className="hover:text-cyan-400 transition-colors cursor-pointer">Privacidad</span>
-            </div>
           </div>
         </div>
       </footer>

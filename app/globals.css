@@ -274,7 +274,7 @@ body {
 }
 
 .animate-scroll-tech {
-  animation: scroll-tech 25s linear infinite;
+  animation: scroll-tech 15s linear infinite;
 }
 
 /* Delays para animaciones escalonadas */
@@ -510,6 +510,11 @@ body {
 
   .card-3d:hover {
     transform: translateY(-4px);
+  }
+
+  /* Animación más rápida en móviles */
+  .animate-scroll-tech {
+    animation: scroll-tech 10s linear infinite;
   }
 }
 
