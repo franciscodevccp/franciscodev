@@ -146,7 +146,7 @@ export default function Home() {
           <div className={`${mounted ? "animate-fade-in-up" : "opacity-0"}`}>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark text-cyan-400 text-sm font-medium mb-6">
 
-              Consultoría Tecnológica en Concepción
+              Consultoría Tecnológica
             </span>
           </div>
 
@@ -163,7 +163,7 @@ export default function Home() {
             className={`text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 ${mounted ? "animate-fade-in-up delay-200" : "opacity-0"
               }`}
           >
-            Ayudo a empresas en Concepción a implementar tecnología real:
+            Ayudo a empresas a implementar tecnología real:
             <span className="text-cyan-400 font-medium"> ERPs, Apps a medida </span>
             y automatización que funciona.
           </p>
@@ -547,7 +547,7 @@ export default function Home() {
                 {/* Content */}
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    Innovautos Concepción
+                    Innovautos
                   </h3>
                   <p className="text-slate-600 mb-4">
                     Plataforma web moderna para venta de vehículos usados con
@@ -661,7 +661,7 @@ export default function Home() {
               </p>
               <div className="flex items-center gap-2 text-slate-500 text-sm">
                 <MapPin size={14} className="text-cyan-400" />
-                <span>Concepción, Chile</span>
+                <span>Chile</span>
               </div>
             </div>
 
@@ -710,7 +710,7 @@ export default function Home() {
                   <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-cyan-400">
                     <MapPin size={16} />
                   </div>
-                  <span>Concepción, Chile</span>
+                  <span>Chile</span>
                 </li>
               </ul>
             </div>
