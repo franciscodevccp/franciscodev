@@ -11,9 +11,17 @@ import {
   MapPin,
   Sparkles,
   AlertTriangle,
-  FileSpreadsheet,
-  TrendingDown,
-  X
+  Clock,
+  Database,
+  BarChart3,
+  X,
+  Building2,
+  HeartPulse,
+  Car,
+  ShoppingBag,
+  Wrench,
+  Globe,
+  Layers
 } from "lucide-react";
 
 // WhatsApp official icon component
@@ -172,9 +180,9 @@ export default function Home() {
             className={`text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 ${mounted ? "animate-fade-in-up delay-200" : "opacity-0"
               }`}
           >
-            Ayudo a empresas a implementar tecnología real:
-            <span className="text-cyan-400 font-medium"> ERPs, Apps a medida </span>
-            y automatización que funciona.
+            Diseño e implemento soluciones tecnológicas a medida para
+            <span className="text-cyan-400 font-medium"> cualquier industria</span>:
+            desde sistemas de reservas hasta ERPs y automatización que funciona.
           </p>
 
           <div
@@ -227,9 +235,9 @@ export default function Home() {
 
               <ul className="space-y-4">
                 {[
-                  { icon: FileSpreadsheet, text: "Inventario que nunca cuadra con la realidad" },
-                  { icon: TrendingDown, text: "Ventas registradas en papel o Excel infinitos" },
-                  { icon: AlertTriangle, text: "Cero visibilidad de tu negocio en tiempo real" },
+                  { icon: Clock, text: "Procesos manuales que ralentizan tu operación" },
+                  { icon: Database, text: "Datos fragmentados en hojas de cálculo y sistemas desconectados" },
+                  { icon: BarChart3, text: "Sin visibilidad en tiempo real para tomar decisiones" },
                 ].map((item, index) => (
                   <li
                     key={index}
@@ -482,8 +490,31 @@ export default function Home() {
             ))}
           </div>
 
+          {/* Sectores */}
+          <div className="mt-14 reveal">
+            <p className="text-center text-sm font-semibold text-slate-400 uppercase tracking-widest mb-6">
+              Sectores donde he trabajado
+            </p>
+            <div className="flex flex-wrap justify-center gap-3">
+              {[
+                { icon: Building2, label: "Turismo y Hotelería" },
+                { icon: HeartPulse, label: "Salud" },
+                { icon: Car, label: "Automotriz" },
+                { icon: ShoppingBag, label: "Retail y Comercio" },
+                { icon: Wrench, label: "Talleres y Servicios" },
+                { icon: Globe, label: "Startups y Tech" },
+                { icon: Layers, label: "Más sectores" },
+              ].map((sector, i) => (
+                <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium shadow-sm hover:border-blue-300 hover:text-blue-600 transition-colors">
+                  <sector.icon size={15} className="text-blue-500 flex-shrink-0" />
+                  {sector.label}
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* CTA */}
-          <div className="text-center mt-16 reveal">
+          <div className="text-center mt-14 reveal">
             <a
               href={whatsappCotizacion}
               target="_blank"
@@ -557,7 +588,7 @@ export default function Home() {
                 </p>
 
                 <p>
-                  No creo en vender &ldquo;enlatados&rdquo;. Me dedico a <span className="text-slate-900 font-medium">escuchar y entender a fondo</span> los desafíos únicos de tu empresa —ya seas constructor, mueblista o comerciante— antes de escribir una sola línea de código.
+                  No creo en vender &ldquo;enlatados&rdquo;. Me dedico a <span className="text-slate-900 font-medium">escuchar y entender a fondo</span> los desafíos únicos de tu organización —ya seas una startup, un hotel, una clínica o una empresa establecida— antes de escribir una sola línea de código.
                 </p>
 
                 <p>
@@ -599,34 +630,27 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="text-center mb-16 reveal">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-4">
-              Proyectos en Desarrollo
+              Casos Reales
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
-              Portafolio de <span className="gradient-text">Desarrollos</span>
+              Portafolio de <span className="gradient-text">Proyectos</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Soluciones tecnológicas en las que estoy trabajando actualmente
+              Soluciones implementadas en distintos sectores e industrias
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
 
             {/* ★ PROYECTO DESTACADO: Domos El Tabo */}
-            <div className="reveal md:col-span-2 group relative pt-5">
+            <div className="reveal md:col-span-2 group">
 
-              {/* Badge destacado — fuera del overflow-hidden */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
-                <span className="px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold shadow-lg tracking-wide whitespace-nowrap">
-                  ★ Proyecto Destacado
-                </span>
-              </div>
-
-              <div className="bg-white rounded-2xl overflow-hidden border-2 border-cyan-200 hover:border-cyan-400 hover:shadow-2xl transition-all duration-500">
+              <div className="bg-white rounded-2xl overflow-hidden border-2 border-cyan-200 hover:border-cyan-400 hover:shadow-2xl transition-all duration-500 relative">
                 <div className="flex flex-col md:flex-row">
 
                   {/* Image — 60% ancho en desktop, altura fija */}
                   <div
-                    className="relative overflow-hidden cursor-pointer md:w-3/5 flex-shrink-0 h-72 md:h-80"
+                    className="relative overflow-hidden cursor-pointer md:w-3/5 flex-shrink-0 h-56 md:h-64"
                     onClick={() => openLightbox(["/proyectos/reserva-public.png", "/proyectos/login-admin.png"])}
                   >
                     <Image
@@ -648,7 +672,13 @@ export default function Home() {
                   </div>
 
                   {/* Content — 40% */}
-                  <div className="p-7 flex flex-col justify-center md:w-2/5">
+                  <div className="p-5 flex flex-col justify-center md:w-2/5">
+                    {/* Badge destacado — alineado con el badge Turismo */}
+                    <div className="mb-3">
+                      <span className="px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold shadow-md tracking-wide">
+                        ★ Proyecto Destacado
+                      </span>
+                    </div>
                     {/* Followers badge Instagram */}
                     <a
                       href="https://www.instagram.com/domoseltabo/"
@@ -660,10 +690,10 @@ export default function Home() {
                       @domoseltabo · 206K seguidores
                     </a>
 
-                    <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">
                       Domos El Tabo
                     </h3>
-                    <p className="text-slate-600 mb-5">
+                    <p className="text-slate-600 mb-4 text-sm">
                       <span className="font-semibold text-slate-800">Sistema de Reservas Completo.</span> Plataforma full-stack con portal de reservas para huéspedes, panel administrativo, pagos online vía Flow.cl y chatbot de WhatsApp con IA para atención 24/7.
                     </p>
                     <ul className="space-y-2 text-sm text-slate-500">
@@ -694,21 +724,21 @@ export default function Home() {
                     alt="Lavado de Oído CCP - Sistema de Reservas"
                     width={700}
                     height={450}
-                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 rounded-full bg-blue-500 text-white text-xs font-semibold">Salud</span>
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Lavado de Oído CCP</h3>
-                  <p className="text-slate-600 mb-4">
-                    <span className="font-semibold text-slate-800">Agenda Autónoma 24/7.</span> Eliminó el 100% de la gestión telefónica, permitiendo que los pacientes se agenden solos y llenando los cupos automáticamente sin intervención del equipo.
+                <div className="p-4">
+                  <h3 className="text-base font-bold text-slate-900 mb-1">Lavado de Oído CCP</h3>
+                  <p className="text-slate-600 mb-3 text-sm">
+                    <span className="font-semibold text-slate-800">Agenda Autónoma 24/7.</span> Eliminó el 100% de la gestión telefónica, permitiendo que los pacientes se agenden solos automáticamente.
                   </p>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Reservas sin intervención humana</li>
-                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Cero llamadas perdidas</li>
-                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Recordatorios automáticos</li>
+                  <ul className="space-y-1 text-xs text-slate-500">
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Reservas sin intervención humana</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Cero llamadas perdidas</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Recordatorios automáticos</li>
                   </ul>
                 </div>
               </div>
@@ -723,21 +753,21 @@ export default function Home() {
                     alt="Innovautos - Plataforma de Vehículos"
                     width={700}
                     height={450}
-                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 rounded-full bg-red-500 text-white text-xs font-semibold">Automotriz</span>
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">Innovautos</h3>
-                  <p className="text-slate-600 mb-4">
-                    <span className="font-semibold text-slate-800">Venta Digital Acelerada.</span> Centralizó todo el stock en una plataforma rápida, reduciendo el tiempo de decisión del cliente y conectando la venta directa por WhatsApp en un solo clic.
+                <div className="p-4">
+                  <h3 className="text-base font-bold text-slate-900 mb-1">Innovautos</h3>
+                  <p className="text-slate-600 mb-3 text-sm">
+                    <span className="font-semibold text-slate-800">Venta Digital Acelerada.</span> Centralizó todo el stock en una plataforma rápida, conectando la venta directa por WhatsApp en un solo clic.
                   </p>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Catálogo siempre actualizado</li>
-                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Contacto directo a un clic</li>
-                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Diseño de alta conversión</li>
+                  <ul className="space-y-1 text-xs text-slate-500">
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Catálogo siempre actualizado</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Contacto directo a un clic</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Diseño de alta conversión</li>
                   </ul>
                 </div>
               </div>
@@ -752,21 +782,21 @@ export default function Home() {
                     alt="ERP Innovautos - Panel de Administración"
                     width={700}
                     height={450}
-                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
                     <span className="px-3 py-1 rounded-full bg-purple-500 text-white text-xs font-semibold">ERP / Dashboard</span>
                   </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">ERP Taller Innovautos</h3>
-                  <p className="text-slate-600 mb-4">
-                    <span className="font-semibold text-slate-800">Control Operativo Total.</span> Digitalizó el flujo completo del taller, eliminando el uso de papel desordenado y evitando pérdidas de dinero por errores en inventario o caja chica.
+                <div className="p-4">
+                  <h3 className="text-base font-bold text-slate-900 mb-1">ERP Taller Innovautos</h3>
+                  <p className="text-slate-600 mb-3 text-sm">
+                    <span className="font-semibold text-slate-800">Control Operativo Total.</span> Digitalizó el flujo completo del taller, eliminando el papel y evitando pérdidas por errores en inventario o caja chica.
                   </p>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Finanzas en tiempo real</li>
-                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Adiós al Excel y papel</li>
-                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Trazabilidad de trabajos</li>
+                  <ul className="space-y-1 text-xs text-slate-500">
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Finanzas en tiempo real</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Adiós al Excel y papel</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Trazabilidad de trabajos</li>
                   </ul>
                 </div>
               </div>
@@ -914,8 +944,8 @@ export default function Home() {
                 answer: "Sí, totalmente. Todo lo que desarrollo es tecnología web responsiva. Podrás controlar tu inventario, ver reportes o gestionar pedidos desde tu celular, tablet o computador, estés donde estés, sin instalar nada extra."
               },
               {
-                question: "¿Es muy caro para una PyME?",
-                answer: "Me adapto a tu realidad. Trabajo con un diseño modular: construimos y pagas solo lo que tu presupuesto permite hoy. Podemos empezar con una solución pequeña que resuelva tu problema más urgente y escalarla después."
+                question: "¿Trabajas con empresas de cualquier tamaño e industria?",
+                answer: "Sí. He trabajado con startups, clínicas, hoteles, talleres mecánicos y empresas establecidas. Mi enfoque modular permite adaptarme a cualquier presupuesto y sector: construimos lo que necesitas hoy y escalamos después según tu crecimiento."
               },
               {
                 question: "¿Qué pasa si algo falla después de la entrega?",
