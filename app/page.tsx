@@ -612,41 +612,44 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8">
 
             {/* ★ PROYECTO DESTACADO: Domos El Tabo */}
-            <div className="reveal md:col-span-2 group">
-              <div className="bg-white rounded-2xl overflow-hidden border-2 border-cyan-200 hover:border-cyan-400 hover:shadow-2xl transition-all duration-500 relative">
+            <div className="reveal md:col-span-2 group relative pt-5">
 
-                {/* Badge destacado */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                  <span className="px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold shadow-lg tracking-wide">
-                    ★ Proyecto Destacado
-                  </span>
-                </div>
+              {/* Badge destacado — fuera del overflow-hidden */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
+                <span className="px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold shadow-lg tracking-wide whitespace-nowrap">
+                  ★ Proyecto Destacado
+                </span>
+              </div>
 
+              <div className="bg-white rounded-2xl overflow-hidden border-2 border-cyan-200 hover:border-cyan-400 hover:shadow-2xl transition-all duration-500">
                 <div className="flex flex-col md:flex-row">
-                  {/* Image — ocupa 60% en desktop */}
-                  <div className="relative overflow-hidden cursor-pointer md:w-3/5 flex-shrink-0" onClick={() => openLightbox(["/proyectos/reserva-public.png", "/proyectos/login-admin.png"])}>
+
+                  {/* Image — 60% ancho en desktop, altura fija */}
+                  <div
+                    className="relative overflow-hidden cursor-pointer md:w-3/5 flex-shrink-0 h-72 md:h-80"
+                    onClick={() => openLightbox(["/proyectos/reserva-public.png", "/proyectos/login-admin.png"])}
+                  >
                     <Image
                       src="/proyectos/reserva-public.png"
                       alt="Domos El Tabo - Sistema de Reservas"
-                      width={900}
-                      height={600}
-                      className="w-full h-72 md:h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                      fill
+                      className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
-                    <div className="absolute top-4 left-4 flex gap-2">
+                    <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 rounded-full bg-cyan-500 text-white text-xs font-semibold">
                         Turismo
                       </span>
                     </div>
                     {/* Indicador de carrusel */}
                     <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
-                      <span className="w-2 h-2 rounded-full bg-white"></span>
-                      <span className="w-2 h-2 rounded-full bg-white/50"></span>
+                      <span className="w-2 h-2 rounded-full bg-white shadow"></span>
+                      <span className="w-2 h-2 rounded-full bg-white/50 shadow"></span>
                     </div>
                   </div>
 
                   {/* Content — 40% */}
                   <div className="p-7 flex flex-col justify-center md:w-2/5">
-                    {/* Followers badge */}
+                    {/* Followers badge Instagram */}
                     <a
                       href="https://www.instagram.com/domoseltabo/"
                       target="_blank"
