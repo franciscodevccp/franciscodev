@@ -6,6 +6,8 @@ import {
   ArrowRight,
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   MapPin,
   Sparkles,
   AlertTriangle,
@@ -25,7 +27,14 @@ const WhatsAppIcon = ({ size = 24 }: { size?: number }) => (
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [lightboxImages, setLightboxImages] = useState<string[]>([]);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+
+  const openLightbox = (images: string | string[], index = 0) => {
+    setLightboxImages(Array.isArray(images) ? images : [images]);
+    setLightboxIndex(index);
+  };
+  const closeLightbox = () => setLightboxImages([]);
 
   useEffect(() => {
     setMounted(true);
@@ -601,11 +610,82 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Proyecto 1: Lavado de Oído CCP */}
-            <div className="reveal group">
+
+            {/* ★ PROYECTO DESTACADO: Domos El Tabo */}
+            <div className="reveal md:col-span-2 group">
+              <div className="bg-white rounded-2xl overflow-hidden border-2 border-cyan-200 hover:border-cyan-400 hover:shadow-2xl transition-all duration-500 relative">
+
+                {/* Badge destacado */}
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                  <span className="px-4 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold shadow-lg tracking-wide">
+                    ★ Proyecto Destacado
+                  </span>
+                </div>
+
+                <div className="flex flex-col md:flex-row">
+                  {/* Image — ocupa 60% en desktop */}
+                  <div className="relative overflow-hidden cursor-pointer md:w-3/5 flex-shrink-0" onClick={() => openLightbox(["/proyectos/reserva-public.png", "/proyectos/login-admin.png"])}>
+                    <Image
+                      src="/proyectos/reserva-public.png"
+                      alt="Domos El Tabo - Sistema de Reservas"
+                      width={900}
+                      height={600}
+                      className="w-full h-72 md:h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                    />
+                    <div className="absolute top-4 left-4 flex gap-2">
+                      <span className="px-3 py-1 rounded-full bg-cyan-500 text-white text-xs font-semibold">
+                        Turismo
+                      </span>
+                    </div>
+                    {/* Indicador de carrusel */}
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-white"></span>
+                      <span className="w-2 h-2 rounded-full bg-white/50"></span>
+                    </div>
+                  </div>
+
+                  {/* Content — 40% */}
+                  <div className="p-7 flex flex-col justify-center md:w-2/5">
+                    {/* Followers badge */}
+                    <a
+                      href="https://www.instagram.com/domoseltabo/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-gradient-to-r from-pink-500 to-orange-400 text-white text-xs font-semibold w-fit hover:opacity-90 transition-opacity"
+                    >
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                      @domoseltabo · 206K seguidores
+                    </a>
+
+                    <h3 className="text-2xl font-bold text-slate-900 mb-3">
+                      Domos El Tabo
+                    </h3>
+                    <p className="text-slate-600 mb-5">
+                      <span className="font-semibold text-slate-800">Sistema de Reservas Completo.</span> Plataforma full-stack con portal de reservas para huéspedes, panel administrativo, pagos online vía Flow.cl y chatbot de WhatsApp con IA para atención 24/7.
+                    </p>
+                    <ul className="space-y-2 text-sm text-slate-500">
+                      <li className="flex items-center gap-2">
+                        <Check size={14} className="text-green-500" />
+                        Reservas online con pago de abono (Flow.cl)
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check size={14} className="text-green-500" />
+                        Panel admin + chatbot WhatsApp con IA
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <Check size={14} className="text-green-500" />
+                        Check-in por QR y gestión de huéspedes
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Proyecto 2: Lavado de Oído CCP */}
+            <div className="reveal delay-200 group">
               <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
-                {/* Image */}
-                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/proyecto1.webp")}>
+                <div className="relative overflow-hidden cursor-pointer" onClick={() => openLightbox("/proyectos/proyecto1.webp")}>
                   <Image
                     src="/proyectos/proyecto1.webp"
                     alt="Lavado de Oído CCP - Sistema de Reservas"
@@ -614,43 +694,27 @@ export default function Home() {
                     className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-blue-500 text-white text-xs font-semibold">
-                      Salud
-                    </span>
+                    <span className="px-3 py-1 rounded-full bg-blue-500 text-white text-xs font-semibold">Salud</span>
                   </div>
                 </div>
-
-                {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    Lavado de Oído CCP
-                  </h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Lavado de Oído CCP</h3>
                   <p className="text-slate-600 mb-4">
                     <span className="font-semibold text-slate-800">Agenda Autónoma 24/7.</span> Eliminó el 100% de la gestión telefónica, permitiendo que los pacientes se agenden solos y llenando los cupos automáticamente sin intervención del equipo.
                   </p>
                   <ul className="space-y-2 text-sm text-slate-500">
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Reservas sin intervención humana
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Cero llamadas perdidas
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Recordatorios automáticos
-                    </li>
+                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Reservas sin intervención humana</li>
+                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Cero llamadas perdidas</li>
+                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Recordatorios automáticos</li>
                   </ul>
                 </div>
               </div>
             </div>
 
-            {/* Proyecto 2: Innovautos */}
-            <div className="reveal delay-200 group">
+            {/* Proyecto 3: Innovautos */}
+            <div className="reveal delay-300 group">
               <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
-                {/* Image */}
-                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/proyecto2.webp")}>
+                <div className="relative overflow-hidden cursor-pointer" onClick={() => openLightbox("/proyectos/proyecto2.webp")}>
                   <Image
                     src="/proyectos/proyecto2.webp"
                     alt="Innovautos - Plataforma de Vehículos"
@@ -659,43 +723,27 @@ export default function Home() {
                     className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-red-500 text-white text-xs font-semibold">
-                      Automotriz
-                    </span>
+                    <span className="px-3 py-1 rounded-full bg-red-500 text-white text-xs font-semibold">Automotriz</span>
                   </div>
                 </div>
-
-                {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    Innovautos
-                  </h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">Innovautos</h3>
                   <p className="text-slate-600 mb-4">
                     <span className="font-semibold text-slate-800">Venta Digital Acelerada.</span> Centralizó todo el stock en una plataforma rápida, reduciendo el tiempo de decisión del cliente y conectando la venta directa por WhatsApp en un solo clic.
                   </p>
                   <ul className="space-y-2 text-sm text-slate-500">
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Catálogo siempre actualizado
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Contacto directo a un clic
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Diseño de alta conversión
-                    </li>
+                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Catálogo siempre actualizado</li>
+                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Contacto directo a un clic</li>
+                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Diseño de alta conversión</li>
                   </ul>
                 </div>
               </div>
             </div>
 
-            {/* Proyecto 3: ERP Innovautos */}
-            <div className="reveal delay-300 group">
+            {/* Proyecto 4: ERP Innovautos */}
+            <div className="reveal delay-400 group">
               <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
-                {/* Image */}
-                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/proyecto3.webp")}>
+                <div className="relative overflow-hidden cursor-pointer" onClick={() => openLightbox("/proyectos/proyecto3.webp")}>
                   <Image
                     src="/proyectos/proyecto3.webp"
                     alt="ERP Innovautos - Panel de Administración"
@@ -704,82 +752,23 @@ export default function Home() {
                     className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-purple-500 text-white text-xs font-semibold">
-                      ERP / Dashboard
-                    </span>
+                    <span className="px-3 py-1 rounded-full bg-purple-500 text-white text-xs font-semibold">ERP / Dashboard</span>
                   </div>
                 </div>
-
-                {/* Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    ERP Taller Innovautos
-                  </h3>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">ERP Taller Innovautos</h3>
                   <p className="text-slate-600 mb-4">
                     <span className="font-semibold text-slate-800">Control Operativo Total.</span> Digitalizó el flujo completo del taller, eliminando el uso de papel desordenado y evitando pérdidas de dinero por errores en inventario o caja chica.
                   </p>
                   <ul className="space-y-2 text-sm text-slate-500">
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Finanzas en tiempo real
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Adiós al Excel y papel
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Trazabilidad de trabajos
-                    </li>
+                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Finanzas en tiempo real</li>
+                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Adiós al Excel y papel</li>
+                    <li className="flex items-center gap-2"><Check size={14} className="text-green-500" />Trazabilidad de trabajos</li>
                   </ul>
                 </div>
               </div>
             </div>
 
-            {/* Proyecto 4: Agüita Sabor */}
-            <div className="reveal delay-400 group">
-              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
-                {/* Image */}
-                <div className="relative overflow-hidden cursor-pointer" onClick={() => setLightboxImage("/proyectos/aguitasabor.webp")}>
-                  <Image
-                    src="/proyectos/aguitasabor.webp"
-                    alt="Agüita Sabor - Carta Digital"
-                    width={700}
-                    height={450}
-                    className="w-full h-64 object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-orange-500 text-white text-xs font-semibold">
-                      Gastronomía
-                    </span>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    Agüita Sabor
-                  </h3>
-                  <p className="text-slate-600 mb-4">
-                    <span className="font-semibold text-slate-800">Carta Digital Inteligente.</span> Digitalizó la experiencia de venta eliminando los menús físicos y PDFs lentos, ofreciendo un catálogo interactivo de carga instantánea que facilita la decisión de compra.
-                  </p>
-                  <ul className="space-y-2 text-sm text-slate-500">
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Carga ultra-rápida (Sin descargas)
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Precios actualizados en tiempo real
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <Check size={14} className="text-green-500" />
-                      Diseño &quot;Mobile First&quot; de alto impacto
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* CTA */}
@@ -1081,34 +1070,74 @@ export default function Home() {
       </footer>
 
       {/* ============================================
-          LIGHTBOX MODAL
+          LIGHTBOX MODAL CON CARRUSEL
           ============================================ */}
-      {lightboxImage && (
+      {lightboxImages.length > 0 && (
         <div
           className="fixed inset-0 z-[200] bg-black/90 flex items-center justify-center p-4 animate-fade-in cursor-pointer"
-          onClick={() => setLightboxImage(null)}
+          onClick={closeLightbox}
         >
           {/* Close button */}
           <button
-            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
-            onClick={() => setLightboxImage(null)}
+            className="absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors z-10"
+            onClick={closeLightbox}
           >
             <X size={24} />
           </button>
 
-          {/* Image */}
+          {/* Flecha izquierda */}
+          {lightboxImages.length > 1 && (
+            <button
+              className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors z-10 disabled:opacity-30"
+              disabled={lightboxIndex === 0}
+              onClick={(e) => { e.stopPropagation(); setLightboxIndex(i => Math.max(0, i - 1)); }}
+            >
+              <ChevronLeft size={32} />
+            </button>
+          )}
+
+          {/* Flecha derecha */}
+          {lightboxImages.length > 1 && (
+            <button
+              className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors z-10 disabled:opacity-30"
+              disabled={lightboxIndex === lightboxImages.length - 1}
+              onClick={(e) => { e.stopPropagation(); setLightboxIndex(i => Math.min(lightboxImages.length - 1, i + 1)); }}
+            >
+              <ChevronRight size={32} />
+            </button>
+          )}
+
+          {/* Imagen */}
           <div
-            className="relative max-w-6xl max-h-[90vh] w-full"
+            className="relative max-w-6xl max-h-[85vh] w-full"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
-              src={lightboxImage}
+              src={lightboxImages[lightboxIndex]}
               alt="Proyecto expandido"
               width={1400}
               height={900}
-              className="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+              className="w-full h-auto max-h-[85vh] object-contain rounded-lg"
             />
           </div>
+
+          {/* Dots indicadores */}
+          {lightboxImages.length > 1 && (
+            <div
+              className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {lightboxImages.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setLightboxIndex(i)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all duration-200 ${
+                    i === lightboxIndex ? "bg-white scale-125" : "bg-white/40 hover:bg-white/70"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
     </main>
