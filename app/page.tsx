@@ -21,7 +21,8 @@ import {
   ShoppingBag,
   Wrench,
   Globe,
-  Layers
+  Layers,
+  Cloud
 } from "lucide-react";
 
 // WhatsApp official icon component
@@ -710,94 +711,149 @@ export default function Home() {
                         Check-in por QR y gestión de huéspedes
                       </li>
                     </ul>
+
+                    {/* Stack tecnológico */}
+                    <div className="flex flex-wrap gap-1.5 mt-4">
+                      {["Next.js", "React", "TypeScript", "PostgreSQL", "Prisma", "Flow", "WhatsApp API", "Cloudflare"].map((tech) => (
+                        <span key={tech} className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-medium">{tech}</span>
+                      ))}
+                    </div>
+
+                    {/* Sitio en vivo */}
+                    <a
+                      href="https://reserva.cabañaseneltabo.cl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-4 text-sm font-semibold text-cyan-600 hover:text-cyan-700 w-fit"
+                    >
+                      <Globe size={15} />
+                      Ver sitio en vivo
+                      <ArrowRight size={14} />
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Proyecto 2: Lavado de Oído CCP */}
+            {/* Proyecto 2: Hotel de la Costa */}
+            <div className="reveal delay-100 group">
+              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+                {/* Portada diseñada (sin captura aún) */}
+                <div className="relative h-44 overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
+                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "22px 22px" }} />
+                  <Building2 size={56} className="text-white/95 relative drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
+                  <div className="absolute top-4 left-4">
+                    <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur text-white text-xs font-semibold">Hotelería</span>
+                  </div>
+                </div>
+                <div className="p-4 flex flex-col flex-1">
+                  <h3 className="text-base font-bold text-slate-900 mb-1">Hotel de la Costa</h3>
+                  <p className="text-slate-600 mb-3 text-sm">
+                    <span className="font-semibold text-slate-800">Sistema administrativo para hotel.</span> Panel de gestión para operar reservas, habitaciones, pagos e historial de huéspedes.
+                  </p>
+                  <ul className="space-y-1 text-xs text-slate-500 mb-3">
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Reservas y estado de habitaciones</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Pagos e historial de huéspedes</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Reportes de gestión</li>
+                  </ul>
+                  <div className="flex flex-wrap gap-1.5 mt-auto">
+                    {["Next.js", "React", "TypeScript", "PostgreSQL", "Prisma"].map((tech) => (
+                      <span key={tech} className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-medium">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Proyecto 3: Entre Huevos y Quesos */}
             <div className="reveal delay-200 group">
-              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
-                <div className="relative overflow-hidden cursor-pointer" onClick={() => openLightbox("/proyectos/proyecto1.webp")}>
-                  <Image
-                    src="/proyectos/proyecto1.webp"
-                    alt="Lavado de Oído CCP - Sistema de Reservas"
-                    width={700}
-                    height={450}
-                    className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
+              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-amber-200 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+                {/* Portada diseñada (sin captura aún) */}
+                <div className="relative h-44 overflow-hidden bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
+                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "22px 22px" }} />
+                  <ShoppingBag size={56} className="text-white/95 relative drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-blue-500 text-white text-xs font-semibold">Salud</span>
+                    <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur text-white text-xs font-semibold">Alimentos</span>
+                  </div>
+                  <div className="absolute top-4 right-4">
+                    <span className="px-3 py-1 rounded-full bg-slate-900/40 backdrop-blur text-white text-xs font-medium">En desarrollo</span>
                   </div>
                 </div>
-                <div className="p-4">
-                  <h3 className="text-base font-bold text-slate-900 mb-1">Lavado de Oído CCP</h3>
+                <div className="p-4 flex flex-col flex-1">
+                  <h3 className="text-base font-bold text-slate-900 mb-1">Entre Huevos y Quesos</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Agenda Autónoma 24/7.</span> Eliminó el 100% de la gestión telefónica, permitiendo que los pacientes se agenden solos automáticamente.
+                    <span className="font-semibold text-slate-800">Sitio para distribuidora de alimentos.</span> Presentación de marca, catálogo de productos y canal de contacto directo.
                   </p>
-                  <ul className="space-y-1 text-xs text-slate-500">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Reservas sin intervención humana</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Cero llamadas perdidas</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Recordatorios automáticos</li>
+                  <ul className="space-y-1 text-xs text-slate-500 mb-3">
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Presentación de marca</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Catálogo de productos</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Contacto directo</li>
                   </ul>
+                  <div className="flex flex-wrap gap-1.5 mt-auto">
+                    {["Next.js", "React"].map((tech) => (
+                      <span key={tech} className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-medium">{tech}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Proyecto 3: Innovautos */}
+            {/* Proyecto 4: ArchivaCloud */}
             <div className="reveal delay-300 group">
-              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
-                <div className="relative overflow-hidden cursor-pointer" onClick={() => openLightbox("/proyectos/proyecto2.webp")}>
-                  <Image
-                    src="/proyectos/proyecto2.webp"
-                    alt="Innovautos - Plataforma de Vehículos"
-                    width={700}
-                    height={450}
-                    className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
+              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-cyan-200 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+                {/* Portada diseñada (sin captura aún) */}
+                <div className="relative h-44 overflow-hidden bg-gradient-to-br from-cyan-500 to-sky-700 flex items-center justify-center">
+                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "22px 22px" }} />
+                  <Cloud size={56} className="text-white/95 relative drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-red-500 text-white text-xs font-semibold">Automotriz</span>
+                    <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur text-white text-xs font-semibold">Cloud / SaaS</span>
                   </div>
                 </div>
-                <div className="p-4">
-                  <h3 className="text-base font-bold text-slate-900 mb-1">Innovautos</h3>
+                <div className="p-4 flex flex-col flex-1">
+                  <h3 className="text-base font-bold text-slate-900 mb-1">ArchivaCloud</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Venta Digital Acelerada.</span> Centralizó todo el stock en una plataforma rápida, conectando la venta directa por WhatsApp en un solo clic.
+                    <span className="font-semibold text-slate-800">Portal de archivos en la nube.</span> Carga y descarga seguras mediante URLs prefirmadas, con un enfoque de seguridad de mínimo privilegio.
                   </p>
-                  <ul className="space-y-1 text-xs text-slate-500">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Catálogo siempre actualizado</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Contacto directo a un clic</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Diseño de alta conversión</li>
+                  <ul className="space-y-1 text-xs text-slate-500 mb-3">
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />URLs prefirmadas (S3)</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />IAM de mínimo privilegio</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Cifrado y TLS extremo a extremo</li>
                   </ul>
+                  <div className="flex flex-wrap gap-1.5 mt-auto">
+                    {["FastAPI", "Python", "React", "AWS S3", "DynamoDB", "IAM"].map((tech) => (
+                      <span key={tech} className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-medium">{tech}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Proyecto 4: ERP Innovautos */}
+            {/* Proyecto 5: Data Cleaner */}
             <div className="reveal delay-400 group">
-              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500">
-                <div className="relative overflow-hidden cursor-pointer" onClick={() => openLightbox("/proyectos/proyecto3.webp")}>
-                  <Image
-                    src="/proyectos/proyecto3.webp"
-                    alt="ERP Innovautos - Panel de Administración"
-                    width={700}
-                    height={450}
-                    className="w-full h-44 object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                  />
+              <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-violet-200 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
+                {/* Portada diseñada (sin captura aún) */}
+                <div className="relative h-44 overflow-hidden bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center">
+                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "22px 22px" }} />
+                  <Database size={56} className="text-white/95 relative drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-purple-500 text-white text-xs font-semibold">ERP / Dashboard</span>
+                    <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur text-white text-xs font-semibold">Datos / ETL</span>
                   </div>
                 </div>
-                <div className="p-4">
-                  <h3 className="text-base font-bold text-slate-900 mb-1">ERP Taller Innovautos</h3>
+                <div className="p-4 flex flex-col flex-1">
+                  <h3 className="text-base font-bold text-slate-900 mb-1">Data Cleaner</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Control Operativo Total.</span> Digitalizó el flujo completo del taller, eliminando el papel y evitando pérdidas por errores en inventario o caja chica.
+                    <span className="font-semibold text-slate-800">Plataforma de limpieza de datos (ETL).</span> Pipeline para cargar, normalizar, validar y exportar datasets de forma consistente.
                   </p>
-                  <ul className="space-y-1 text-xs text-slate-500">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Finanzas en tiempo real</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Adiós al Excel y papel</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Trazabilidad de trabajos</li>
+                  <ul className="space-y-1 text-xs text-slate-500 mb-3">
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Carga y normalización</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Validación de datos</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Exportación de datasets</li>
                   </ul>
+                  <div className="flex flex-wrap gap-1.5 mt-auto">
+                    {["Next.js", "TypeScript"].map((tech) => (
+                      <span key={tech} className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-medium">{tech}</span>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
