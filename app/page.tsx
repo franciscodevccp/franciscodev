@@ -738,12 +738,40 @@ export default function Home() {
             {/* Proyecto 2: Hotel de la Costa */}
             <div className="reveal delay-100 group">
               <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-blue-200 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
-                {/* Portada diseñada (sin captura aún) */}
-                <div className="relative h-44 overflow-hidden bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center">
-                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "22px 22px" }} />
-                  <Building2 size={56} className="text-white/95 relative drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur text-white text-xs font-semibold">Hotelería</span>
+                {/* Portada estilo mockup de producto: dashboard admin */}
+                <div className="relative h-44 overflow-hidden bg-slate-100">
+                  <div className="absolute inset-0" style={{ background: "radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #eef2f7 100%)" }} />
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">Hotelería</span>
+                  </div>
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] bg-white rounded-lg border border-slate-200 shadow-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500" style={{ transformOrigin: "center bottom" }}>
+                    <div className="h-6 bg-slate-800 flex items-center gap-1.5 px-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <Building2 size={11} className="text-cyan-300 ml-1.5" />
+                      <span className="h-1.5 flex-1 bg-slate-600 rounded-full"></span>
+                    </div>
+                    <div className="flex h-24 bg-white">
+                      <div className="w-[26%] bg-slate-900 p-2 flex flex-col gap-1.5">
+                        <span className="h-1.5 w-4/5 rounded-full bg-cyan-400"></span>
+                        <span className="h-1.5 w-3/5 rounded-full bg-slate-600"></span>
+                        <span className="h-1.5 w-3/4 rounded-full bg-slate-600"></span>
+                        <span className="h-1.5 w-2/3 rounded-full bg-slate-600"></span>
+                      </div>
+                      <div className="flex-1 p-2.5">
+                        <div className="flex gap-1.5 mb-2">
+                          <span className="flex-1 h-7 rounded bg-slate-100"></span>
+                          <span className="flex-1 h-7 rounded bg-cyan-50"></span>
+                          <span className="flex-1 h-7 rounded bg-slate-100"></span>
+                        </div>
+                        <div className="space-y-1.5">
+                          <span className="block h-1.5 w-full rounded-full bg-slate-100"></span>
+                          <span className="block h-1.5 w-5/6 rounded-full bg-slate-100"></span>
+                          <span className="block h-1.5 w-11/12 rounded-full bg-slate-100"></span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="p-4 flex flex-col flex-1">
@@ -768,15 +796,40 @@ export default function Home() {
             {/* Proyecto 3: Entre Huevos y Quesos */}
             <div className="reveal delay-200 group">
               <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-amber-200 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
-                {/* Portada diseñada (sin captura aún) */}
-                <div className="relative h-44 overflow-hidden bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center">
-                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "22px 22px" }} />
-                  <ShoppingBag size={56} className="text-white/95 relative drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur text-white text-xs font-semibold">Alimentos</span>
+                {/* Portada estilo mockup de producto: sitio con catálogo */}
+                <div className="relative h-44 overflow-hidden bg-slate-100">
+                  <div className="absolute inset-0" style={{ background: "radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #eef2f7 100%)" }} />
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">Alimentos</span>
                   </div>
-                  <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1 rounded-full bg-slate-900/40 backdrop-blur text-white text-xs font-medium">En desarrollo</span>
+                  <div className="absolute top-4 right-4 z-10">
+                    <span className="px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 text-[11px] font-semibold border border-amber-200">En desarrollo</span>
+                  </div>
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] bg-white rounded-lg border border-slate-200 shadow-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500" style={{ transformOrigin: "center bottom" }}>
+                    <div className="h-6 bg-slate-800 flex items-center gap-1.5 px-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <ShoppingBag size={11} className="text-cyan-300 ml-1.5" />
+                      <span className="h-1.5 flex-1 bg-slate-600 rounded-full"></span>
+                    </div>
+                    <div className="h-24 bg-white p-2.5">
+                      <div className="flex items-center gap-1.5 mb-2">
+                        <span className="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
+                        <span className="h-1.5 w-10 rounded-full bg-slate-300"></span>
+                        <span className="ml-auto h-1.5 w-5 rounded-full bg-slate-200"></span>
+                        <span className="h-1.5 w-5 rounded-full bg-slate-200"></span>
+                        <span className="h-1.5 w-5 rounded-full bg-slate-200"></span>
+                      </div>
+                      <div className="grid grid-cols-3 gap-1.5">
+                        <span className="h-7 rounded bg-slate-100"></span>
+                        <span className="h-7 rounded bg-cyan-50"></span>
+                        <span className="h-7 rounded bg-slate-100"></span>
+                        <span className="h-7 rounded bg-slate-100"></span>
+                        <span className="h-7 rounded bg-slate-100"></span>
+                        <span className="h-7 rounded bg-cyan-50"></span>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="p-4 flex flex-col flex-1">
@@ -801,12 +854,34 @@ export default function Home() {
             {/* Proyecto 4: ArchivaCloud */}
             <div className="reveal delay-300 group">
               <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-cyan-200 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
-                {/* Portada diseñada (sin captura aún) */}
-                <div className="relative h-44 overflow-hidden bg-gradient-to-br from-cyan-500 to-sky-700 flex items-center justify-center">
-                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "22px 22px" }} />
-                  <Cloud size={56} className="text-white/95 relative drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur text-white text-xs font-semibold">Cloud / SaaS</span>
+                {/* Portada estilo mockup de producto: gestor de archivos */}
+                <div className="relative h-44 overflow-hidden bg-slate-100">
+                  <div className="absolute inset-0" style={{ background: "radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #eef2f7 100%)" }} />
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">Cloud / SaaS</span>
+                  </div>
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] bg-white rounded-lg border border-slate-200 shadow-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500" style={{ transformOrigin: "center bottom" }}>
+                    <div className="h-6 bg-slate-800 flex items-center gap-1.5 px-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <Cloud size={11} className="text-cyan-300 ml-1.5" />
+                      <span className="h-1.5 flex-1 bg-slate-600 rounded-full"></span>
+                    </div>
+                    <div className="flex h-24 bg-white">
+                      <div className="w-[28%] bg-slate-50 border-r border-slate-100 p-2 flex flex-col gap-1.5">
+                        <span className="h-1.5 w-4/5 rounded-full bg-cyan-400"></span>
+                        <span className="h-1.5 w-3/5 rounded-full bg-slate-200"></span>
+                        <span className="h-1.5 w-2/3 rounded-full bg-slate-200"></span>
+                        <span className="h-1.5 w-1/2 rounded-full bg-slate-200"></span>
+                      </div>
+                      <div className="flex-1 p-2 flex flex-col gap-1.5">
+                        <div className="flex items-center gap-1.5"><span className="w-4 h-4 rounded bg-cyan-100"></span><span className="h-1.5 flex-1 rounded-full bg-slate-100"></span></div>
+                        <div className="flex items-center gap-1.5"><span className="w-4 h-4 rounded bg-slate-100"></span><span className="h-1.5 flex-1 rounded-full bg-slate-100"></span></div>
+                        <div className="flex items-center gap-1.5"><span className="w-4 h-4 rounded bg-slate-100"></span><span className="h-1.5 flex-1 rounded-full bg-slate-100"></span></div>
+                        <div className="flex items-center gap-1.5"><span className="w-4 h-4 rounded bg-cyan-100"></span><span className="h-1.5 flex-1 rounded-full bg-slate-100"></span></div>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="p-4 flex flex-col flex-1">
@@ -831,12 +906,36 @@ export default function Home() {
             {/* Proyecto 5: Data Cleaner */}
             <div className="reveal delay-400 group">
               <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 hover:border-violet-200 hover:shadow-2xl transition-all duration-500 h-full flex flex-col">
-                {/* Portada diseñada (sin captura aún) */}
-                <div className="relative h-44 overflow-hidden bg-gradient-to-br from-violet-600 to-purple-700 flex items-center justify-center">
-                  <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "22px 22px" }} />
-                  <Database size={56} className="text-white/95 relative drop-shadow-lg group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 rounded-full bg-white/15 backdrop-blur text-white text-xs font-semibold">Datos / ETL</span>
+                {/* Portada estilo mockup de producto: tabla de datos */}
+                <div className="relative h-44 overflow-hidden bg-slate-100">
+                  <div className="absolute inset-0" style={{ background: "radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #eef2f7 100%)" }} />
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">Datos / ETL</span>
+                  </div>
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] bg-white rounded-lg border border-slate-200 shadow-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500" style={{ transformOrigin: "center bottom" }}>
+                    <div className="h-6 bg-slate-800 flex items-center gap-1.5 px-3">
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-slate-500"></span>
+                      <Database size={11} className="text-cyan-300 ml-1.5" />
+                      <span className="h-1.5 flex-1 bg-slate-600 rounded-full"></span>
+                    </div>
+                    <div className="h-24 bg-white p-2.5">
+                      <div className="grid grid-cols-4 gap-1 mb-1.5">
+                        {Array.from({ length: 4 }).map((_, i) => (
+                          <span key={i} className="h-3 rounded-sm bg-cyan-100"></span>
+                        ))}
+                      </div>
+                      <div className="space-y-1">
+                        {Array.from({ length: 4 }).map((_, r) => (
+                          <div key={r} className="grid grid-cols-4 gap-1">
+                            {Array.from({ length: 4 }).map((_, c) => (
+                              <span key={c} className="h-2.5 rounded-sm bg-slate-100"></span>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="p-4 flex flex-col flex-1">
