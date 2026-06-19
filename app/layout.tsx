@@ -9,25 +9,25 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://franciscodev.cl'),
-  title: "Francisco Dev | Consultoría y Desarrollo Web",
-  description: "Transformo el caos manual en control digital. ERPs, aplicaciones web a medida y consultoría tecnológica para pymes.",
-  keywords: ["desarrollo web", "ERP", "consultoría IT", "Chile", "software a medida"],
+  title: "Francisco Dev | Software a Medida para Negocios de LATAM",
+  description: "Transformo el caos manual en control digital: tiendas online, sistemas administrativos y software a medida para negocios de toda Latinoamérica. Trabajo 100% remoto.",
+  keywords: ["software a medida", "tienda online", "sistema administrativo", "ERP", "aplicaciones web y móviles", "desarrollo de software LATAM", "trabajo remoto"],
   authors: [{ name: "Francisco Dev" }],
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: "Francisco Dev | Del Caos Manual al Control Digital",
-    description: "ERPs, aplicaciones web a medida y consultoría tecnológica para pymes",
+    description: "Tiendas online, sistemas administrativos y software a medida para negocios de toda Latinoamérica.",
     url: 'https://franciscodev.cl',
     siteName: 'Francisco Dev',
     type: "website",
-    locale: "es_CL",
+    locale: "es_419",
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Francisco Dev | Consultoría y Desarrollo Web',
-    description: 'ERPs, aplicaciones web a medida y consultoría tecnológica para pymes',
+    title: 'Francisco Dev | Software a Medida para Negocios de LATAM',
+    description: 'Tiendas online, sistemas administrativos y software a medida para negocios de toda Latinoamérica.',
   },
 };
 
@@ -43,11 +43,8 @@ const jsonLd = {
     '@type': 'PostalAddress',
     addressCountry: 'CL',
   },
-  areaServed: {
-    '@type': 'Country',
-    name: 'Chile',
-  },
-  serviceType: ['Desarrollo Web', 'Sistemas ERP', 'Consultoría IT', 'Aplicaciones a Medida'],
+  areaServed: ['Chile', 'México', 'Colombia', 'Perú', 'Argentina', 'América Latina'],
+  serviceType: ['Tiendas online', 'Sistemas administrativos y ERP', 'Aplicaciones web y móviles', 'Software a medida'],
   priceRange: '$$',
 };
 

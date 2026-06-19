@@ -8,8 +8,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
-  MapPin,
-  Sparkles,
+  Mail,
   AlertTriangle,
   Clock,
   Database,
@@ -46,12 +45,15 @@ export default function Home() {
   const closeLightbox = () => setLightboxImages([]);
 
   useEffect(() => {
-    setMounted(true);
+    const raf = requestAnimationFrame(() => setMounted(true));
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   // Scroll reveal effect
@@ -78,11 +80,16 @@ export default function Home() {
   const whatsappProyecto = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, tengo un proyecto en mente y me gustaría conversarlo contigo.")}`;
   const whatsappContacto = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, vi tu página web y me gustaría más información sobre tus servicios.")}`;
 
-  // WhatsApp links para servicios
-  const whatsappConsultoria = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, me interesa el servicio de Consultoría IT para mi empresa.")}`;
-  const whatsappDesarrollo = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, necesito un desarrollo web para mi negocio.")}`;
-  const whatsappERP = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, me interesa implementar un Sistema ERP en mi empresa.")}`;
-  const whatsappApps = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, necesito una App a Medida para mi negocio.")}`;
+  // WhatsApp links para las áreas de la oferta
+  const whatsappVenta = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, quiero vender online: una tienda o sitio de venta con pagos integrados.")}`;
+  const whatsappOperacion = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, quiero ordenar y controlar mi operación con un sistema administrativo.")}`;
+  const whatsappSoftware = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, necesito software a medida para web y móvil.")}`;
+
+  // Contacto formal por correo (comprador profesional / remoto)
+  const emailContacto = "mailto:franciscosaldivia87@gmail.com?subject=" +
+    encodeURIComponent("Proyecto de software — Francisco Dev") +
+    "&body=" +
+    encodeURIComponent("Hola Francisco:\n\nCuéntame sobre mi proyecto:\n- Qué necesito:\n- Mi negocio / país:\n- Plazo aproximado:\n");
 
   return (
     <main className="overflow-hidden">
@@ -181,9 +188,9 @@ export default function Home() {
             className={`text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 ${mounted ? "animate-fade-in-up delay-200" : "opacity-0"
               }`}
           >
-            Diseño e implemento soluciones tecnológicas a medida para
-            <span className="text-cyan-400 font-medium"> cualquier industria</span>:
-            desde sistemas de reservas hasta ERPs y automatización que funciona.
+            Te ayudo a vender online, ordenar tu operación y llevar tu software
+            a cualquier dispositivo.
+            <span className="text-cyan-400 font-medium"> Tecnología que se adapta a tu negocio</span>, no al revés.
           </p>
 
           <div
@@ -421,15 +428,15 @@ export default function Home() {
           <div className="text-center mb-16 reveal">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-4">
 
-              Soluciones a tu Medida
+              En qué te ayudo
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
-              La Tecnología que tu
-              <span className="gradient-text"> Negocio Necesita</span>
+              Tres formas de
+              <span className="gradient-text"> impulsar tu negocio</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Implemento soluciones tecnológicas que transforman la forma en que operas,
-              dándote control total sobre tu empresa.
+              Cada solución se diseña a la medida de tu operación.
+              Tecnología que se adapta a tu negocio, no al revés.
             </p>
           </div>
 
@@ -437,21 +444,21 @@ export default function Home() {
             {[
               {
                 image: "/consultoria.webp",
-                title: "Consultoría IT",
-                description: "Analizo tu negocio y diseño la estrategia tecnológica perfecta para tus objetivos.",
-                features: ["Diagnóstico gratuito", "Plan personalizado", "Implementación guiada"]
-              },
-              {
-                image: "/Desarrollo.webp",
-                title: "Desarrollo a Medida",
-                description: "Creo aplicaciones web y móviles que se adaptan exactamente a tus procesos.",
-                features: ["Apps web modernas", "Integraciones API", "Soporte continuo"]
+                title: "Vender online",
+                description: "Tiendas y sitios de venta con pagos integrados, listos para recibir clientes y cobrar sin intermediarios.",
+                features: ["Catálogo y carrito de compra", "Pagos online integrados", "Listo para vender 24/7"]
               },
               {
                 image: "/Sistemas.webp",
-                title: "Sistemas ERP",
-                description: "Implemento sistemas de gestión que unifican todas tus operaciones en un solo lugar.",
-                features: ["Control de inventario", "Facturación automática", "Reportes en tiempo real"]
+                title: "Ordenar y controlar tu operación",
+                description: "Sistemas administrativos, inventario, reservas y ERP para tener todo bajo control en un solo lugar.",
+                features: ["Inventario y reservas", "Toda tu operación centralizada", "Reportes en tiempo real"]
+              },
+              {
+                image: "/Desarrollo.webp",
+                title: "Software en cualquier dispositivo",
+                description: "Apps web y móviles que se ven y funcionan bien en cualquier pantalla, sin instalar nada extra.",
+                features: ["Web y móvil a medida", "Se adapta a cualquier pantalla", "Acceso desde donde estés"]
               },
             ].map((service, index) => (
               <div
@@ -555,7 +562,7 @@ export default function Home() {
                 {/* Profile image */}
                 <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                   <Image
-                    src="/sobremi.png"
+                    src="/sobremi.webp"
                     alt="Francisco - Consultor IT"
                     fill
                     className="object-cover"
@@ -593,12 +600,12 @@ export default function Home() {
                 </p>
 
                 <p>
-                  Mi objetivo final es simple: <span className="text-slate-900 font-medium">liberar a ti y a tu equipo</span> de las tareas manuales y repetitivas mediante automatización inteligente, devolviéndoles el tiempo valioso para enfocarse en lo que realmente importa: <span className="gradient-text font-semibold">hacer crecer el negocio</span>.
+                  Mi objetivo final es simple: <span className="text-slate-900 font-medium">liberar a ti y a tu equipo</span> de las tareas manuales y repetitivas, devolviéndoles el tiempo valioso para enfocarse en lo que realmente importa: <span className="gradient-text font-semibold">hacer crecer el negocio</span>.
                 </p>
               </div>
 
               {/* CTA */}
-              <div className="mt-8">
+              <div className="mt-8 flex flex-wrap gap-3">
                 <a
                   href={whatsappContacto}
                   target="_blank"
@@ -607,6 +614,13 @@ export default function Home() {
                 >
                   <WhatsAppIcon size={20} />
                   Conversemos
+                </a>
+                <a
+                  href={emailContacto}
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-700 font-semibold hover:border-blue-300 hover:text-blue-600 transition-colors"
+                >
+                  <Mail size={20} />
+                  Escríbeme un correo
                 </a>
               </div>
             </div>
@@ -652,10 +666,10 @@ export default function Home() {
                   {/* Image — 60% ancho en desktop, altura fija */}
                   <div
                     className="relative overflow-hidden cursor-pointer md:w-3/5 flex-shrink-0 h-56 md:h-64"
-                    onClick={() => openLightbox(["/proyectos/reserva-public.png", "/proyectos/login-admin.png"])}
+                    onClick={() => openLightbox(["/proyectos/reserva-public.webp", "/proyectos/login-admin.webp"])}
                   >
                     <Image
-                      src="/proyectos/reserva-public.png"
+                      src="/proyectos/reserva-public.webp"
                       alt="Domos El Tabo - Sistema de Reservas"
                       fill
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
@@ -695,20 +709,20 @@ export default function Home() {
                       Domos El Tabo
                     </h3>
                     <p className="text-slate-600 mb-4 text-sm">
-                      <span className="font-semibold text-slate-800">Sistema de Reservas Completo.</span> Plataforma full-stack con portal de reservas para huéspedes, panel administrativo, pagos online vía Flow.cl y chatbot de WhatsApp con IA para atención 24/7.
+                      <span className="font-semibold text-slate-800">Reservas directas 24/7.</span> Los huéspedes reservan y pagan online por su cuenta, sin llamadas ni planillas. Cero dobles reservas y atención automática por WhatsApp a toda hora.
                     </p>
                     <ul className="space-y-2 text-sm text-slate-500">
                       <li className="flex items-center gap-2">
                         <Check size={14} className="text-green-500" />
-                        Reservas online con pago de abono (Flow.cl)
+                        Reservas y pagos online sin intermediarios
                       </li>
                       <li className="flex items-center gap-2">
                         <Check size={14} className="text-green-500" />
-                        Panel admin + chatbot WhatsApp con IA
+                        Cero dobles reservas, agenda siempre al día
                       </li>
                       <li className="flex items-center gap-2">
                         <Check size={14} className="text-green-500" />
-                        Check-in por QR y gestión de huéspedes
+                        Atención automática por WhatsApp 24/7
                       </li>
                     </ul>
 
@@ -777,12 +791,12 @@ export default function Home() {
                 <div className="p-4 flex flex-col flex-1">
                   <h3 className="text-base font-bold text-slate-900 mb-1">Hotel de la Costa</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Sistema administrativo para hotel.</span> Panel de gestión para operar reservas, habitaciones, pagos e historial de huéspedes.
+                    <span className="font-semibold text-slate-800">Toda la recepción en una pantalla.</span> El equipo opera reservas, habitaciones y pagos sin planillas sueltas ni dobles registros.
                   </p>
                   <ul className="space-y-1 text-xs text-slate-500 mb-3">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Reservas y estado de habitaciones</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Pagos e historial de huéspedes</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Reportes de gestión</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Disponibilidad de habitaciones al instante</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Pagos e historial de cada huésped en un lugar</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Reportes claros para decidir</li>
                   </ul>
                   <div className="flex flex-wrap gap-1.5 mt-auto">
                     {["Next.js", "React", "TypeScript", "PostgreSQL", "Prisma"].map((tech) => (
@@ -835,12 +849,12 @@ export default function Home() {
                 <div className="p-4 flex flex-col flex-1">
                   <h3 className="text-base font-bold text-slate-900 mb-1">Entre Huevos y Quesos</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Sitio para distribuidora de alimentos.</span> Presentación de marca, catálogo de productos y canal de contacto directo.
+                    <span className="font-semibold text-slate-800">Catálogo siempre visible.</span> Los clientes ven los productos y contactan al instante, sin depender solo de las redes sociales.
                   </p>
                   <ul className="space-y-1 text-xs text-slate-500 mb-3">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Presentación de marca</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Catálogo de productos</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Contacto directo</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Catálogo de productos siempre a mano</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Clientes que llegan y contactan directo</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Una marca que se ve profesional</li>
                   </ul>
                   <div className="flex flex-wrap gap-1.5 mt-auto">
                     {["Next.js", "React"].map((tech) => (
@@ -887,12 +901,12 @@ export default function Home() {
                 <div className="p-4 flex flex-col flex-1">
                   <h3 className="text-base font-bold text-slate-900 mb-1">ArchivaCloud</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Portal de archivos en la nube.</span> Carga y descarga seguras mediante URLs prefirmadas, con un enfoque de seguridad de mínimo privilegio.
+                    <span className="font-semibold text-slate-800">Archivos compartidos sin exponer tus datos.</span> Sube y comparte documentos pesados de forma segura, con acceso controlado para cada persona.
                   </p>
                   <ul className="space-y-1 text-xs text-slate-500 mb-3">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />URLs prefirmadas (S3)</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />IAM de mínimo privilegio</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Cifrado y TLS extremo a extremo</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Compartir archivos pesados sin riesgo</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Acceso controlado por usuario</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Datos cifrados de punta a punta</li>
                   </ul>
                   <div className="flex flex-wrap gap-1.5 mt-auto">
                     {["FastAPI", "Python", "React", "AWS S3", "DynamoDB", "IAM"].map((tech) => (
@@ -941,12 +955,12 @@ export default function Home() {
                 <div className="p-4 flex flex-col flex-1">
                   <h3 className="text-base font-bold text-slate-900 mb-1">Data Cleaner</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Plataforma de limpieza de datos (ETL).</span> Pipeline para cargar, normalizar, validar y exportar datasets de forma consistente.
+                    <span className="font-semibold text-slate-800">Datos ordenados y confiables.</span> Convierte planillas desordenadas en información lista para usar, sin errores ni duplicados.
                   </p>
                   <ul className="space-y-1 text-xs text-slate-500 mb-3">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Carga y normalización</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Validación de datos</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Exportación de datasets</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Adiós a los datos duplicados y con errores</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Información validada y consistente</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Lista para exportar y decidir</li>
                   </ul>
                   <div className="flex flex-wrap gap-1.5 mt-auto">
                     {["Next.js", "TypeScript"].map((tech) => (
@@ -1095,7 +1109,7 @@ export default function Home() {
                 answer: "No. Mi trabajo es traducir procesos complejos en pantallas simples. Diseño interfaces intuitivas (similares a usar una App bancaria) para que tú y tu equipo las usen desde el primer día sin complicaciones."
               },
               {
-                question: "¿Puedo ver la información desde mi celular o estando en obra?",
+                question: "¿Puedo ver la información desde mi celular o fuera de la oficina?",
                 answer: "Sí, totalmente. Todo lo que desarrollo es tecnología web responsiva. Podrás controlar tu inventario, ver reportes o gestionar pedidos desde tu celular, tablet o computador, estés donde estés, sin instalar nada extra."
               },
               {
@@ -1103,12 +1117,16 @@ export default function Home() {
                 answer: "Sí. He trabajado con startups, clínicas, hoteles, talleres mecánicos y empresas establecidas. Mi enfoque modular permite adaptarme a cualquier presupuesto y sector: construimos lo que necesitas hoy y escalamos después según tu crecimiento."
               },
               {
+                question: "¿Trabajas con empresas de otros países de forma remota?",
+                answer: "Sí. Trabajo 100% remoto con clientes de toda Latinoamérica. Cada proyecto parte con un proceso claro y un contrato que define alcance, plazos y pagos por etapas. Tendrás avances semanales, comunicación directa por WhatsApp y videollamada, y referencias disponibles a pedido."
+              },
+              {
                 question: "¿Qué pasa si algo falla después de la entrega?",
-                answer: "No te dejo solo. Todos mis desarrollos incluyen un periodo de garantía y acompañamiento (Marcha Blanca). Si aparece un error técnico en ese lapso, lo soluciono sin costo. Además, ofrezco planes de soporte para tu tranquilidad a largo plazo."
+                answer: "No te dejo solo. Todos mis desarrollos incluyen un periodo de garantía y acompañamiento posterior a la entrega. Si aparece un error técnico en ese lapso, lo soluciono sin costo. Además, ofrezco planes de soporte para tu tranquilidad a largo plazo."
               },
               {
                 question: "¿Puedo justificar este gasto en mi empresa?",
-                answer: "Sí. Estoy formalizado ante el SII. Por cada proyecto emito Boleta de Honorarios Electrónica por servicios profesionales de consultoría y desarrollo, lo que te permite respaldar la inversión y deducirla de los gastos de tu empresa."
+                answer: "Sí. Por cada proyecto emito un comprobante por servicios profesionales de consultoría y desarrollo, para que respaldes la inversión en la contabilidad de tu empresa."
               }
             ].map((faq, index) => (
               <details
@@ -1174,37 +1192,31 @@ export default function Home() {
                 que buscan digitalizar sus operaciones.
               </p>
               <div className="flex items-center gap-2 text-slate-500 text-sm">
-                <MapPin size={14} className="text-cyan-400" />
-                <span>Chile</span>
+                <Globe size={14} className="text-cyan-400" />
+                <span>Trabajo remoto · LATAM</span>
               </div>
             </div>
 
             {/* Column 2: Services */}
             <div>
-              <h4 className="text-white font-semibold mb-4">Servicios</h4>
+              <h4 className="text-white font-semibold mb-4">En qué te ayudo</h4>
               <ul className="space-y-3 text-slate-400 text-sm">
                 <li>
-                  <a href={whatsappConsultoria} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
+                  <a href={whatsappVenta} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
                     <ArrowRight size={12} />
-                    Consultoría IT
+                    Vender online
                   </a>
                 </li>
                 <li>
-                  <a href={whatsappDesarrollo} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
+                  <a href={whatsappOperacion} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
                     <ArrowRight size={12} />
-                    Desarrollo Web
+                    Ordenar tu operación
                   </a>
                 </li>
                 <li>
-                  <a href={whatsappERP} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
+                  <a href={whatsappSoftware} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
                     <ArrowRight size={12} />
-                    Sistemas ERP
-                  </a>
-                </li>
-                <li>
-                  <a href={whatsappApps} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
-                    <ArrowRight size={12} />
-                    Apps a Medida
+                    Software a medida
                   </a>
                 </li>
               </ul>
@@ -1214,17 +1226,27 @@ export default function Home() {
             <div>
               <h4 className="text-white font-semibold mb-4">Contacto</h4>
               <ul className="space-y-3 text-slate-400 text-sm">
-                <li className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center">
-                    <WhatsAppIcon size={16} />
-                  </div>
-                  <span>+56 9 8554 1349</span>
+                <li>
+                  <a href={whatsappContacto} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-cyan-400 transition-colors">
+                    <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center">
+                      <WhatsAppIcon size={16} />
+                    </div>
+                    <span>+56 9 8554 1349</span>
+                  </a>
+                </li>
+                <li>
+                  <a href={emailContacto} className="flex items-center gap-3 hover:text-cyan-400 transition-colors">
+                    <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-cyan-400">
+                      <Mail size={16} />
+                    </div>
+                    <span>franciscosaldivia87@gmail.com</span>
+                  </a>
                 </li>
                 <li className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-cyan-400">
-                    <MapPin size={16} />
+                    <Globe size={16} />
                   </div>
-                  <span>Chile</span>
+                  <span>Trabajo remoto · LATAM</span>
                 </li>
               </ul>
             </div>
@@ -1235,15 +1257,24 @@ export default function Home() {
               <p className="text-slate-400 text-sm mb-4">
                 Conversemos sobre cómo puedo ayudarte a digitalizar tu negocio.
               </p>
-              <a
-                href={whatsappContacto}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 bg-green-500 hover:bg-green-400 text-white font-semibold rounded-lg transition-all hover:scale-105 text-sm"
-              >
-                <WhatsAppIcon size={18} />
-                Escribir por WhatsApp
-              </a>
+              <div className="flex flex-col gap-3">
+                <a
+                  href={whatsappContacto}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-3 bg-green-500 hover:bg-green-400 text-white font-semibold rounded-lg transition-all hover:scale-105 text-sm"
+                >
+                  <WhatsAppIcon size={18} />
+                  Escribir por WhatsApp
+                </a>
+                <a
+                  href={emailContacto}
+                  className="inline-flex items-center gap-2 px-5 py-3 border border-slate-700 hover:border-cyan-500 text-slate-300 hover:text-white font-semibold rounded-lg transition-all text-sm"
+                >
+                  <Mail size={18} />
+                  Escribir un correo
+                </a>
+              </div>
             </div>
           </div>
 
