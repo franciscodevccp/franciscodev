@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import type { Dict } from "@/lib/i18n/types";
 import {
   ArrowRight,
   Check,
@@ -32,7 +34,7 @@ const WhatsAppIcon = ({ size = 24 }: { size?: number }) => (
 );
 
 
-export default function Home() {
+export default function Landing({ dict, lang }: { dict: Dict; lang: "es" | "en" }) {
   const [scrolled, setScrolled] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [lightboxImages, setLightboxImages] = useState<string[]>([]);
@@ -73,23 +75,41 @@ export default function Home() {
     return () => observer.disconnect();
   }, [mounted]);
 
-  // WhatsApp links con mensajes personalizados
+  // WhatsApp links con el mensaje prellenado en el idioma de la página
   const whatsappBase = "https://wa.me/56985541349";
-  const whatsappAsesoria = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, me gustaría agendar una asesoría gratuita para mi negocio.")}`;
-  const whatsappCotizacion = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, me interesa solicitar una cotización para un proyecto.")}`;
-  const whatsappProyecto = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, tengo un proyecto en mente y me gustaría conversarlo contigo.")}`;
-  const whatsappContacto = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, vi tu página web y me gustaría más información sobre tus servicios.")}`;
+  const wa = (text: string) => `${whatsappBase}?text=${encodeURIComponent(text)}`;
+  const whatsappAsesoria = wa(dict.wa.assessment);
+  const whatsappCotizacion = wa(dict.wa.quote);
+  const whatsappProyecto = wa(dict.wa.project);
+  const whatsappContacto = wa(dict.wa.contact);
 
   // WhatsApp links para las áreas de la oferta
-  const whatsappVenta = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, quiero vender online: una tienda o sitio de venta con pagos integrados.")}`;
-  const whatsappOperacion = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, quiero ordenar y controlar mi operación con un sistema administrativo.")}`;
-  const whatsappSoftware = `${whatsappBase}?text=${encodeURIComponent("Hola Francisco, necesito software a medida para web y móvil.")}`;
+  const whatsappVenta = wa(dict.wa.sell);
+  const whatsappOperacion = wa(dict.wa.ops);
+  const whatsappSoftware = wa(dict.wa.software);
 
   // Contacto formal por correo (comprador profesional / remoto)
   const emailContacto = "mailto:franciscosaldivia87@gmail.com?subject=" +
-    encodeURIComponent("Proyecto de software — Francisco Dev") +
+    encodeURIComponent(dict.email.subject) +
     "&body=" +
-    encodeURIComponent("Hola Francisco:\n\nCuéntame sobre mi proyecto:\n- Qué necesito:\n- Mi negocio / país:\n- Plazo aproximado:\n");
+    encodeURIComponent(dict.email.body);
+
+  // Alternativa por correo junto a cada botón de WhatsApp (solo si el idioma la define: /en)
+  const emailAltDark = dict.emailCta ? (
+    <a href={emailContacto} className="btn-outline text-lg">
+      <Mail size={20} />
+      {dict.emailCta}
+    </a>
+  ) : null;
+  const emailAltLight = dict.emailCta ? (
+    <a
+      href={emailContacto}
+      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-700 font-semibold hover:border-blue-300 hover:text-blue-600 transition-colors text-lg"
+    >
+      <Mail size={20} />
+      {dict.emailCta}
+    </a>
+  ) : null;
 
   return (
     <main className="overflow-hidden">
@@ -114,15 +134,43 @@ export default function Home() {
             Francisco Dev
           </span>
         </div>
-        <a
-          href={whatsappContacto}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`btn-primary text-sm ${mounted ? "animate-fade-in-down delay-200" : "opacity-0"}`}
-        >
-          <WhatsAppIcon size={18} />
-          Hablemos
-        </a>
+        <div className={`flex items-center gap-4 ${mounted ? "animate-fade-in-down delay-200" : "opacity-0"}`}>
+          <div className="flex items-center gap-1.5 text-sm font-semibold">
+            <Link
+              href="/"
+              aria-current={lang === "es" ? "page" : undefined}
+              className={lang === "es" ? "text-white" : "text-slate-400 hover:text-white transition-colors"}
+            >
+              ES
+            </Link>
+            <span className="text-slate-600" aria-hidden="true">|</span>
+            <Link
+              href="/en"
+              aria-current={lang === "en" ? "page" : undefined}
+              className={lang === "en" ? "text-white" : "text-slate-400 hover:text-white transition-colors"}
+            >
+              EN
+            </Link>
+          </div>
+          {dict.emailCta && (
+            <a
+              href={emailContacto}
+              className="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-slate-300 hover:text-cyan-400 transition-colors"
+            >
+              <Mail size={16} />
+              {dict.emailCta}
+            </a>
+          )}
+          <a
+            href={whatsappContacto}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm"
+          >
+            <WhatsAppIcon size={18} />
+            {dict.nav.cta}
+          </a>
+        </div>
       </nav>
 
       {/* ============================================
@@ -133,7 +181,7 @@ export default function Home() {
         <div className="absolute inset-0 z-0">
           <Image
             src="/header.webp"
-            alt="Escritorio tech moderno"
+            alt={dict.hero.alt}
             fill
             className="object-cover"
             priority
@@ -171,7 +219,7 @@ export default function Home() {
           <div className={`${mounted ? "animate-fade-in-up" : "opacity-0"}`}>
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark text-cyan-400 text-sm font-medium mb-6">
 
-              Consultoría Tecnológica
+              {dict.hero.eyebrow}
             </span>
           </div>
 
@@ -179,18 +227,16 @@ export default function Home() {
             className={`text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 ${mounted ? "animate-fade-in-up delay-100" : "opacity-0"
               }`}
           >
-            Del <span className="gradient-text">Caos Manual</span>
+            {dict.hero.t1}<span className="gradient-text">{dict.hero.g1}</span>
             <br />
-            al <span className="gradient-text">Control Digital</span>
+            {dict.hero.t2}<span className="gradient-text">{dict.hero.g2}</span>
           </h1>
 
           <p
             className={`text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 ${mounted ? "animate-fade-in-up delay-200" : "opacity-0"
               }`}
           >
-            Te ayudo a vender online, ordenar tu operación y llevar tu software
-            a cualquier dispositivo.
-            <span className="text-cyan-400 font-medium"> Tecnología que se adapta a tu negocio</span>, no al revés.
+            {dict.hero.subtitle}
           </p>
 
           <div
@@ -198,13 +244,14 @@ export default function Home() {
               }`}
           >
             <a href={whatsappAsesoria} target="_blank" rel="noopener noreferrer" className="btn-primary text-lg animate-pulse-glow">
-              Agendar Asesoría Gratis
+              {dict.hero.ctaPrimary}
               <ArrowRight size={20} />
             </a>
             <a href="#servicios" className="btn-outline text-lg">
-              Ver Soluciones
+              {dict.hero.ctaSecondary}
               <ChevronDown size={20} />
             </a>
+            {emailAltDark}
           </div>
         </div>
       </section>
@@ -228,24 +275,23 @@ export default function Home() {
             <div className="reveal">
               <span className="inline-flex items-center gap-2 text-red-500 font-semibold text-sm uppercase tracking-wider mb-4">
                 <AlertTriangle size={18} />
-                El Problema
+                {dict.problem.eyebrow}
               </span>
 
               <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 leading-tight">
-                ¿Tu escritorio
-                <span className="block text-red-500">se ve así?</span>
+                {dict.problem.titleTop}
+                <span className="block text-red-500">{dict.problem.titleRed}</span>
               </h2>
 
               <p className="text-lg text-slate-600 mb-8">
-                El desorden administrativo te está costando dinero, tiempo y oportunidades.
-                Estos problemas son más comunes de lo que crees:
+                {dict.problem.subtitle}
               </p>
 
               <ul className="space-y-4">
                 {[
-                  { icon: Clock, text: "Procesos manuales que ralentizan tu operación" },
-                  { icon: Database, text: "Datos fragmentados en hojas de cálculo y sistemas desconectados" },
-                  { icon: BarChart3, text: "Sin visibilidad en tiempo real para tomar decisiones" },
+                  { icon: Clock, text: dict.problem.items[0] },
+                  { icon: Database, text: dict.problem.items[1] },
+                  { icon: BarChart3, text: dict.problem.items[2] },
                 ].map((item, index) => (
                   <li
                     key={index}
@@ -269,7 +315,7 @@ export default function Home() {
 
                 <Image
                   src="/problema.webp"
-                  alt="Escritorio caótico con papeles desorganizados"
+                  alt={dict.problem.alt}
                   width={700}
                   height={470}
                   className="relative rounded-2xl shadow-2xl hover:scale-[1.02] transition-transform duration-500 w-full h-auto"
@@ -303,18 +349,17 @@ export default function Home() {
           {/* Header */}
           <div className="text-center mb-16 reveal">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark text-cyan-400 text-sm font-semibold mb-4">
-              Mi Proceso
+              {dict.process.eyebrow}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              Tecnología que se Adapta a
-              <span className="gradient-text"> Tu Negocio</span>
+              {dict.process.t}
+              <span className="gradient-text">{dict.process.g}</span>
             </h2>
             <p className="text-xl text-cyan-400 font-medium mb-4">
-              No al revés.
+              {dict.process.tagline}
             </p>
             <p className="text-lg text-slate-400 max-w-2xl mx-auto">
-              Nada de plantillas genéricas. Cada solución se diseña desde cero,
-              escuchando tu realidad y construyendo exactamente lo que tu negocio necesita.
+              {dict.process.subtitle}
             </p>
           </div>
 
@@ -323,31 +368,31 @@ export default function Home() {
             {[
               {
                 step: "01",
-                title: "Diagnóstico Gratuito",
-                description: "Escucho tu problema real. Identifico dónde pierdes tiempo y dinero hoy.",
-                deliverable: "Resumen de tu problema principal",
+                title: dict.process.steps[0].title,
+                description: dict.process.steps[0].description,
+                deliverable: dict.process.steps[0].deliverable,
                 color: "from-blue-500 to-blue-600"
               },
               {
                 step: "02",
-                title: "Diseño a Medida",
-                description: "Dibujo cómo funcionará la solución. Recibes una maqueta visual GRATIS antes de pagar.",
-                deliverable: "Maqueta demo + Presupuesto",
+                title: dict.process.steps[1].title,
+                description: dict.process.steps[1].description,
+                deliverable: dict.process.steps[1].deliverable,
                 color: "from-cyan-500 to-cyan-600",
                 highlight: true
               },
               {
                 step: "03",
-                title: "Desarrollo Tecnológico",
-                description: "Desarrollo tu solución con avances semanales. Sin desaparecer por semanas.",
-                deliverable: "Sistema funcionando al 100%",
+                title: dict.process.steps[2].title,
+                description: dict.process.steps[2].description,
+                deliverable: dict.process.steps[2].deliverable,
                 color: "from-purple-500 to-purple-600"
               },
               {
                 step: "04",
-                title: "Acompañamiento",
-                description: "Te capacito a ti y tu equipo. Incluye videos explicativos y soporte inicial.",
-                deliverable: "Manuales + Garantía",
+                title: dict.process.steps[3].title,
+                description: dict.process.steps[3].description,
+                deliverable: dict.process.steps[3].deliverable,
                 color: "from-green-500 to-green-600"
               }
             ].map((item, index) => (
@@ -367,7 +412,7 @@ export default function Home() {
                   {/* Highlight badge */}
                   {item.highlight && (
                     <span className="absolute top-4 right-4 px-2 py-1 rounded-full bg-cyan-500 text-white text-xs font-semibold">
-                      ¡GRATIS!
+                      {dict.process.freeBadge}
                     </span>
                   )}
 
@@ -394,19 +439,20 @@ export default function Home() {
             <div className="inline-flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-800/50 border border-slate-700/50 mb-8">
               <Check size={20} className="text-green-500" />
               <span className="text-slate-300">
-                <span className="text-white font-semibold">Sin riesgo:</span> Ves la maqueta antes de comprometerte
+                <span className="text-white font-semibold">{dict.process.noRiskBold}</span> {dict.process.noRiskRest}
               </span>
             </div>
-            <div className="block">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <a
                 href={whatsappAsesoria}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-primary text-lg animate-pulse-glow"
               >
-                Agendar Diagnóstico Gratis
+                {dict.process.cta}
                 <ArrowRight size={20} />
               </a>
+              {emailAltDark}
             </div>
           </div>
         </div>
@@ -428,15 +474,14 @@ export default function Home() {
           <div className="text-center mb-16 reveal">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-4">
 
-              En qué te ayudo
+              {dict.services.eyebrow}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
-              Tres formas de
-              <span className="gradient-text"> impulsar tu negocio</span>
+              {dict.services.t}
+              <span className="gradient-text">{dict.services.g}</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Cada solución se diseña a la medida de tu operación.
-              Tecnología que se adapta a tu negocio, no al revés.
+              {dict.services.subtitle}
             </p>
           </div>
 
@@ -444,21 +489,21 @@ export default function Home() {
             {[
               {
                 image: "/consultoria.webp",
-                title: "Vender online",
-                description: "Tiendas y sitios de venta con pagos integrados, listos para recibir clientes y cobrar sin intermediarios.",
-                features: ["Catálogo y carrito de compra", "Pagos online integrados", "Listo para vender 24/7"]
+                title: dict.services.cards[0].title,
+                description: dict.services.cards[0].description,
+                features: dict.services.cards[0].features
               },
               {
                 image: "/Sistemas.webp",
-                title: "Ordenar y controlar tu operación",
-                description: "Sistemas administrativos, inventario, reservas y ERP para tener todo bajo control en un solo lugar.",
-                features: ["Inventario y reservas", "Toda tu operación centralizada", "Reportes en tiempo real"]
+                title: dict.services.cards[1].title,
+                description: dict.services.cards[1].description,
+                features: dict.services.cards[1].features
               },
               {
                 image: "/Desarrollo.webp",
-                title: "Software en cualquier dispositivo",
-                description: "Apps web y móviles que se ven y funcionan bien en cualquier pantalla, sin instalar nada extra.",
-                features: ["Web y móvil a medida", "Se adapta a cualquier pantalla", "Acceso desde donde estés"]
+                title: dict.services.cards[2].title,
+                description: dict.services.cards[2].description,
+                features: dict.services.cards[2].features
               },
             ].map((service, index) => (
               <div
@@ -501,17 +546,17 @@ export default function Home() {
           {/* Sectores */}
           <div className="mt-14 reveal">
             <p className="text-center text-sm font-semibold text-slate-400 uppercase tracking-widest mb-6">
-              Sectores donde he trabajado
+              {dict.services.sectorsLabel}
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               {[
-                { icon: Building2, label: "Turismo y Hotelería" },
-                { icon: HeartPulse, label: "Salud" },
-                { icon: Car, label: "Automotriz" },
-                { icon: ShoppingBag, label: "Retail y Comercio" },
-                { icon: Wrench, label: "Talleres y Servicios" },
-                { icon: Globe, label: "Startups y Tech" },
-                { icon: Layers, label: "Más sectores" },
+                { icon: Building2, label: dict.services.sectors[0] },
+                { icon: HeartPulse, label: dict.services.sectors[1] },
+                { icon: Car, label: dict.services.sectors[2] },
+                { icon: ShoppingBag, label: dict.services.sectors[3] },
+                { icon: Wrench, label: dict.services.sectors[4] },
+                { icon: Globe, label: dict.services.sectors[5] },
+                { icon: Layers, label: dict.services.sectors[6] },
               ].map((sector, i) => (
                 <div key={i} className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium shadow-sm hover:border-blue-300 hover:text-blue-600 transition-colors">
                   <sector.icon size={15} className="text-blue-500 flex-shrink-0" />
@@ -522,16 +567,17 @@ export default function Home() {
           </div>
 
           {/* CTA */}
-          <div className="text-center mt-14 reveal">
+          <div className="mt-14 reveal flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href={whatsappCotizacion}
               target="_blank"
               rel="noopener noreferrer"
               className="btn-primary text-lg"
             >
-              Solicitar Cotización
+              {dict.services.cta}
               <ArrowRight size={20} />
             </a>
+            {emailAltLight}
           </div>
         </div>
       </section>
@@ -563,7 +609,7 @@ export default function Home() {
                 <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full overflow-hidden border-4 border-white shadow-2xl">
                   <Image
                     src="/sobremi.webp"
-                    alt="Francisco - Consultor IT"
+                    alt={dict.about.alt}
                     fill
                     className="object-cover"
                   />
@@ -571,7 +617,7 @@ export default function Home() {
 
                 {/* Floating badge */}
                 <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-4 py-2 bg-gradient-to-r from-blue-600 to-cyan-500 text-white text-sm font-semibold rounded-full shadow-lg">
-                  Consultor IT
+                  {dict.about.badge}
                 </div>
               </div>
             </div>
@@ -579,29 +625,23 @@ export default function Home() {
             {/* Right: Content */}
             <div className="lg:col-span-3 reveal delay-200">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-6">
-                Sobre Mí
+                {dict.about.eyebrow}
               </span>
 
               <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
-                Hola, soy <span className="gradient-text">Francisco</span>
+                {dict.about.titlePre}<span className="gradient-text">{dict.about.titleName}</span>
               </h2>
 
               <div className="space-y-4 text-slate-600 leading-relaxed">
-                <p>
-                  Más que un desarrollador de software, soy un <span className="text-slate-900 font-medium">consultor apasionado</span> por transformar el caos operativo en soluciones digitales eficientes y rentables.
-                </p>
+                <p>{dict.about.p1}</p>
 
                 <p className="text-lg font-medium text-blue-600 border-l-4 border-blue-500 pl-4 py-2 bg-blue-50 rounded-r-lg">
-                  &ldquo;Tecnología que se adapta a tu negocio, no al revés.&rdquo;
+                  &ldquo;{dict.about.quote}&rdquo;
                 </p>
 
-                <p>
-                  No creo en vender &ldquo;enlatados&rdquo;. Me dedico a <span className="text-slate-900 font-medium">escuchar y entender a fondo</span> los desafíos únicos de tu organización —ya seas una startup, un hotel, una clínica o una empresa establecida— antes de escribir una sola línea de código.
-                </p>
-
-                <p>
-                  Mi objetivo final es simple: <span className="text-slate-900 font-medium">liberar a ti y a tu equipo</span> de las tareas manuales y repetitivas, devolviéndoles el tiempo valioso para enfocarse en lo que realmente importa: <span className="gradient-text font-semibold">hacer crecer el negocio</span>.
-                </p>
+                {dict.about.paragraphs.map((parrafo, i) => (
+                  <p key={i}>{parrafo}</p>
+                ))}
               </div>
 
               {/* CTA */}
@@ -613,14 +653,14 @@ export default function Home() {
                   className="btn-primary"
                 >
                   <WhatsAppIcon size={20} />
-                  Conversemos
+                  {dict.about.ctaWa}
                 </a>
                 <a
                   href={emailContacto}
                   className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl border-2 border-slate-200 text-slate-700 font-semibold hover:border-blue-300 hover:text-blue-600 transition-colors"
                 >
                   <Mail size={20} />
-                  Escríbeme un correo
+                  {dict.about.ctaEmail}
                 </a>
               </div>
             </div>
@@ -645,13 +685,13 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 relative">
           <div className="text-center mb-16 reveal">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-4">
-              Casos Reales
+              {dict.portfolio.eyebrow}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
-              Portafolio de <span className="gradient-text">Proyectos</span>
+              {dict.portfolio.t}<span className="gradient-text">{dict.portfolio.g}</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Soluciones implementadas en distintos sectores e industrias
+              {dict.portfolio.subtitle}
             </p>
           </div>
 
@@ -670,13 +710,13 @@ export default function Home() {
                   >
                     <Image
                       src="/proyectos/reserva-public.webp"
-                      alt="Domos El Tabo - Sistema de Reservas"
+                      alt={dict.portfolio.featured.alt}
                       fill
                       className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute top-4 left-4">
                       <span className="px-3 py-1 rounded-full bg-cyan-500 text-white text-xs font-semibold">
-                        Turismo
+                        {dict.portfolio.featured.badge}
                       </span>
                     </div>
                     {/* Indicador de carrusel */}
@@ -691,7 +731,7 @@ export default function Home() {
                     {/* Badge destacado — alineado con el badge Turismo */}
                     <div className="mb-3">
                       <span className="px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-xs font-bold shadow-md tracking-wide">
-                        ★ Proyecto Destacado
+                        {dict.portfolio.featuredBadge}
                       </span>
                     </div>
                     {/* Followers badge Instagram */}
@@ -702,33 +742,33 @@ export default function Home() {
                       className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-gradient-to-r from-pink-500 to-orange-400 text-white text-xs font-semibold w-fit hover:opacity-90 transition-opacity"
                     >
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                      @domoseltabo · 206K seguidores
+                      {dict.portfolio.igLabel}
                     </a>
 
                     <h3 className="text-xl font-bold text-slate-900 mb-2">
-                      Domos El Tabo
+                      {dict.portfolio.featured.title}
                     </h3>
                     <p className="text-slate-600 mb-4 text-sm">
-                      <span className="font-semibold text-slate-800">Reservas directas 24/7.</span> Los huéspedes reservan y pagan online por su cuenta, sin llamadas ni planillas. Cero dobles reservas y atención automática por WhatsApp a toda hora.
+                      <span className="font-semibold text-slate-800">{dict.portfolio.featured.lead}</span> {dict.portfolio.featured.rest}
                     </p>
                     <ul className="space-y-2 text-sm text-slate-500">
                       <li className="flex items-center gap-2">
                         <Check size={14} className="text-green-500" />
-                        Reservas y pagos online sin intermediarios
+                        {dict.portfolio.featured.bullets[0]}
                       </li>
                       <li className="flex items-center gap-2">
                         <Check size={14} className="text-green-500" />
-                        Cero dobles reservas, agenda siempre al día
+                        {dict.portfolio.featured.bullets[1]}
                       </li>
                       <li className="flex items-center gap-2">
                         <Check size={14} className="text-green-500" />
-                        Atención automática por WhatsApp 24/7
+                        {dict.portfolio.featured.bullets[2]}
                       </li>
                     </ul>
 
                     {/* Stack tecnológico */}
                     <div className="flex flex-wrap gap-1.5 mt-4">
-                      {["Next.js", "React", "TypeScript", "PostgreSQL", "Prisma", "Flow", "WhatsApp API", "Cloudflare"].map((tech) => (
+                      {dict.portfolio.featured.chips.map((tech) => (
                         <span key={tech} className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 text-[11px] font-medium">{tech}</span>
                       ))}
                     </div>
@@ -741,7 +781,7 @@ export default function Home() {
                       className="inline-flex items-center gap-1.5 mt-4 text-sm font-semibold text-cyan-600 hover:text-cyan-700 w-fit"
                     >
                       <Globe size={15} />
-                      Ver sitio en vivo
+                      {dict.portfolio.featured.liveCta}
                       <ArrowRight size={14} />
                     </a>
                   </div>
@@ -756,7 +796,7 @@ export default function Home() {
                 <div className="relative h-44 overflow-hidden bg-slate-100">
                   <div className="absolute inset-0" style={{ background: "radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #eef2f7 100%)" }} />
                   <div className="absolute top-4 left-4 z-10">
-                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">Hotelería</span>
+                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">{dict.portfolio.hotel.badge}</span>
                   </div>
                   <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] bg-white rounded-lg border border-slate-200 shadow-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500" style={{ transformOrigin: "center bottom" }}>
                     <div className="h-6 bg-slate-800 flex items-center gap-1.5 px-3">
@@ -789,14 +829,14 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="p-4 flex flex-col flex-1">
-                  <h3 className="text-base font-bold text-slate-900 mb-1">Hotel de la Costa</h3>
+                  <h3 className="text-base font-bold text-slate-900 mb-1">{dict.portfolio.hotel.title}</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Toda la recepción en una pantalla.</span> El equipo opera reservas, habitaciones y pagos sin planillas sueltas ni dobles registros.
+                    <span className="font-semibold text-slate-800">{dict.portfolio.hotel.lead}</span> {dict.portfolio.hotel.rest}
                   </p>
                   <ul className="space-y-1 text-xs text-slate-500 mb-3">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Disponibilidad de habitaciones al instante</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Pagos e historial de cada huésped en un lugar</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Reportes claros para decidir</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.hotel.bullets[0]}</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.hotel.bullets[1]}</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.hotel.bullets[2]}</li>
                   </ul>
                   <div className="flex flex-wrap gap-1.5 mt-auto">
                     {["Next.js", "React", "TypeScript", "PostgreSQL", "Prisma"].map((tech) => (
@@ -814,10 +854,10 @@ export default function Home() {
                 <div className="relative h-44 overflow-hidden bg-slate-100">
                   <div className="absolute inset-0" style={{ background: "radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #eef2f7 100%)" }} />
                   <div className="absolute top-4 left-4 z-10">
-                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">Alimentos</span>
+                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">{dict.portfolio.ehq.badge}</span>
                   </div>
                   <div className="absolute top-4 right-4 z-10">
-                    <span className="px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 text-[11px] font-semibold border border-amber-200">En desarrollo</span>
+                    <span className="px-2.5 py-1 rounded-full bg-amber-100 text-amber-700 text-[11px] font-semibold border border-amber-200">{dict.portfolio.ehq.devBadge}</span>
                   </div>
                   <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] bg-white rounded-lg border border-slate-200 shadow-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500" style={{ transformOrigin: "center bottom" }}>
                     <div className="h-6 bg-slate-800 flex items-center gap-1.5 px-3">
@@ -847,14 +887,14 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="p-4 flex flex-col flex-1">
-                  <h3 className="text-base font-bold text-slate-900 mb-1">Entre Huevos y Quesos</h3>
+                  <h3 className="text-base font-bold text-slate-900 mb-1">{dict.portfolio.ehq.title}</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Catálogo siempre visible.</span> Los clientes ven los productos y contactan al instante, sin depender solo de las redes sociales.
+                    <span className="font-semibold text-slate-800">{dict.portfolio.ehq.lead}</span> {dict.portfolio.ehq.rest}
                   </p>
                   <ul className="space-y-1 text-xs text-slate-500 mb-3">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Catálogo de productos siempre a mano</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Clientes que llegan y contactan directo</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Una marca que se ve profesional</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.ehq.bullets[0]}</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.ehq.bullets[1]}</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.ehq.bullets[2]}</li>
                   </ul>
                   <div className="flex flex-wrap gap-1.5 mt-auto">
                     {["Next.js", "React"].map((tech) => (
@@ -872,7 +912,7 @@ export default function Home() {
                 <div className="relative h-44 overflow-hidden bg-slate-100">
                   <div className="absolute inset-0" style={{ background: "radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #eef2f7 100%)" }} />
                   <div className="absolute top-4 left-4 z-10">
-                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">Cloud / SaaS</span>
+                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">{dict.portfolio.archiva.badge}</span>
                   </div>
                   <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] bg-white rounded-lg border border-slate-200 shadow-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500" style={{ transformOrigin: "center bottom" }}>
                     <div className="h-6 bg-slate-800 flex items-center gap-1.5 px-3">
@@ -899,14 +939,14 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="p-4 flex flex-col flex-1">
-                  <h3 className="text-base font-bold text-slate-900 mb-1">ArchivaCloud</h3>
+                  <h3 className="text-base font-bold text-slate-900 mb-1">{dict.portfolio.archiva.title}</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Archivos compartidos sin exponer tus datos.</span> Sube y comparte documentos pesados de forma segura, con acceso controlado para cada persona.
+                    <span className="font-semibold text-slate-800">{dict.portfolio.archiva.lead}</span> {dict.portfolio.archiva.rest}
                   </p>
                   <ul className="space-y-1 text-xs text-slate-500 mb-3">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Compartir archivos pesados sin riesgo</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Acceso controlado por usuario</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Datos cifrados de punta a punta</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.archiva.bullets[0]}</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.archiva.bullets[1]}</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.archiva.bullets[2]}</li>
                   </ul>
                   <div className="flex flex-wrap gap-1.5 mt-auto">
                     {["FastAPI", "Python", "React", "AWS S3", "DynamoDB", "IAM"].map((tech) => (
@@ -924,7 +964,7 @@ export default function Home() {
                 <div className="relative h-44 overflow-hidden bg-slate-100">
                   <div className="absolute inset-0" style={{ background: "radial-gradient(120% 80% at 50% 0%, #ffffff 0%, #eef2f7 100%)" }} />
                   <div className="absolute top-4 left-4 z-10">
-                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">Datos / ETL</span>
+                    <span className="px-3 py-1 rounded-full bg-white text-slate-600 text-xs font-semibold border border-slate-200 shadow-sm">{dict.portfolio.data.badge}</span>
                   </div>
                   <div className="absolute left-1/2 -translate-x-1/2 bottom-3 w-[86%] bg-white rounded-lg border border-slate-200 shadow-xl overflow-hidden group-hover:scale-[1.02] transition-transform duration-500" style={{ transformOrigin: "center bottom" }}>
                     <div className="h-6 bg-slate-800 flex items-center gap-1.5 px-3">
@@ -953,14 +993,14 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="p-4 flex flex-col flex-1">
-                  <h3 className="text-base font-bold text-slate-900 mb-1">Data Cleaner</h3>
+                  <h3 className="text-base font-bold text-slate-900 mb-1">{dict.portfolio.data.title}</h3>
                   <p className="text-slate-600 mb-3 text-sm">
-                    <span className="font-semibold text-slate-800">Datos ordenados y confiables.</span> Convierte planillas desordenadas en información lista para usar, sin errores ni duplicados.
+                    <span className="font-semibold text-slate-800">{dict.portfolio.data.lead}</span> {dict.portfolio.data.rest}
                   </p>
                   <ul className="space-y-1 text-xs text-slate-500 mb-3">
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Adiós a los datos duplicados y con errores</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Información validada y consistente</li>
-                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />Lista para exportar y decidir</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.data.bullets[0]}</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.data.bullets[1]}</li>
+                    <li className="flex items-center gap-2"><Check size={12} className="text-green-500" />{dict.portfolio.data.bullets[2]}</li>
                   </ul>
                   <div className="flex flex-wrap gap-1.5 mt-auto">
                     {["Next.js", "TypeScript"].map((tech) => (
@@ -976,17 +1016,20 @@ export default function Home() {
           {/* CTA */}
           <div className="text-center mt-16 reveal">
             <p className="text-slate-600 mb-6">
-              ¿Quieres ver tu empresa aquí?
+              {dict.portfolio.ctaQuestion}
             </p>
-            <a
-              href={whatsappProyecto}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-lg"
-            >
-              Comenzar mi Proyecto
-              <ArrowRight size={20} />
-            </a>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href={whatsappProyecto}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-lg"
+              >
+                {dict.portfolio.cta}
+                <ArrowRight size={20} />
+              </a>
+              {emailAltLight}
+            </div>
           </div>
         </div>
       </section>
@@ -1006,13 +1049,13 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 relative">
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark text-cyan-400 text-sm font-medium mb-4">
-              Tecnologías Modernas
+              {dict.stack.eyebrow}
             </span>
             <h3 className="text-2xl md:text-3xl font-bold text-white">
-              Stack <span className="gradient-text">de Desarrollo</span>
+              {dict.stack.t}<span className="gradient-text">{dict.stack.g}</span>
             </h3>
             <p className="text-slate-400 mt-2 max-w-lg mx-auto text-sm">
-              Trabajo con las herramientas más actuales y robustas del mercado
+              {dict.stack.subtitle}
             </p>
           </div>
 
@@ -1092,43 +1135,18 @@ export default function Home() {
         <div className="max-w-4xl mx-auto px-6 relative">
           <div className="text-center mb-16 reveal">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold mb-4">
-              Resolviendo Dudas
+              {dict.faq.eyebrow}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-4">
-              Preguntas <span className="gradient-text">Frecuentes</span>
+              {dict.faq.t}<span className="gradient-text">{dict.faq.g}</span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Las dudas más comunes que tienen los empresarios antes de dar el salto digital
+              {dict.faq.subtitle}
             </p>
           </div>
 
           <div className="space-y-4">
-            {[
-              {
-                question: "¿Tengo que ser experto en computación para usar lo que construyes?",
-                answer: "No. Mi trabajo es traducir procesos complejos en pantallas simples. Diseño interfaces intuitivas (similares a usar una App bancaria) para que tú y tu equipo las usen desde el primer día sin complicaciones."
-              },
-              {
-                question: "¿Puedo ver la información desde mi celular o fuera de la oficina?",
-                answer: "Sí, totalmente. Todo lo que desarrollo es tecnología web responsiva. Podrás controlar tu inventario, ver reportes o gestionar pedidos desde tu celular, tablet o computador, estés donde estés, sin instalar nada extra."
-              },
-              {
-                question: "¿Trabajas con empresas de cualquier tamaño e industria?",
-                answer: "Sí. He trabajado con startups, clínicas, hoteles, talleres mecánicos y empresas establecidas. Mi enfoque modular permite adaptarme a cualquier presupuesto y sector: construimos lo que necesitas hoy y escalamos después según tu crecimiento."
-              },
-              {
-                question: "¿Trabajas con empresas de otros países de forma remota?",
-                answer: "Sí. Trabajo 100% remoto con clientes de toda Latinoamérica. Cada proyecto parte con un proceso claro y un contrato que define alcance, plazos y pagos por etapas. Tendrás avances semanales, comunicación directa por WhatsApp y videollamada, y referencias disponibles a pedido."
-              },
-              {
-                question: "¿Qué pasa si algo falla después de la entrega?",
-                answer: "No te dejo solo. Todos mis desarrollos incluyen un periodo de garantía y acompañamiento posterior a la entrega. Si aparece un error técnico en ese lapso, lo soluciono sin costo. Además, ofrezco planes de soporte para tu tranquilidad a largo plazo."
-              },
-              {
-                question: "¿Puedo justificar este gasto en mi empresa?",
-                answer: "Sí. Por cada proyecto emito un comprobante por servicios profesionales de consultoría y desarrollo, para que respaldes la inversión en la contabilidad de tu empresa."
-              }
-            ].map((faq, index) => (
+            {dict.faq.items.map((faq, index) => (
               <details
                 key={index}
                 className="reveal group bg-white rounded-2xl border border-slate-200 hover:border-blue-200 hover:shadow-lg transition-all duration-300"
@@ -1153,17 +1171,20 @@ export default function Home() {
           {/* CTA */}
           <div className="text-center mt-16 reveal">
             <p className="text-slate-600 mb-6">
-              ¿Tienes otra pregunta?
+              {dict.faq.ctaQuestion}
             </p>
-            <a
-              href={whatsappContacto}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-primary text-lg"
-            >
-              <WhatsAppIcon size={20} />
-              Pregúntame directamente
-            </a>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <a
+                href={whatsappContacto}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-primary text-lg"
+              >
+                <WhatsAppIcon size={20} />
+                {dict.faq.cta}
+              </a>
+              {emailAltLight}
+            </div>
           </div>
         </div>
       </section>
@@ -1188,35 +1209,34 @@ export default function Home() {
                 <span className="text-white font-bold text-xl">Francisco Dev</span>
               </div>
               <p className="text-slate-400 text-sm leading-relaxed mb-6">
-                Consultoría tecnológica y desarrollo de software a medida para empresas
-                que buscan digitalizar sus operaciones.
+                {dict.footer.blurb}
               </p>
               <div className="flex items-center gap-2 text-slate-500 text-sm">
                 <Globe size={14} className="text-cyan-400" />
-                <span>Trabajo remoto · LATAM</span>
+                <span>{dict.footer.remoteBrand}</span>
               </div>
             </div>
 
             {/* Column 2: Services */}
             <div>
-              <h4 className="text-white font-semibold mb-4">En qué te ayudo</h4>
+              <h4 className="text-white font-semibold mb-4">{dict.footer.helpTitle}</h4>
               <ul className="space-y-3 text-slate-400 text-sm">
                 <li>
                   <a href={whatsappVenta} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
                     <ArrowRight size={12} />
-                    Vender online
+                    {dict.footer.helpLinks[0]}
                   </a>
                 </li>
                 <li>
                   <a href={whatsappOperacion} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
                     <ArrowRight size={12} />
-                    Ordenar tu operación
+                    {dict.footer.helpLinks[1]}
                   </a>
                 </li>
                 <li>
                   <a href={whatsappSoftware} target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors flex items-center gap-2">
                     <ArrowRight size={12} />
-                    Software a medida
+                    {dict.footer.helpLinks[2]}
                   </a>
                 </li>
               </ul>
@@ -1224,7 +1244,7 @@ export default function Home() {
 
             {/* Column 3: Contact */}
             <div>
-              <h4 className="text-white font-semibold mb-4">Contacto</h4>
+              <h4 className="text-white font-semibold mb-4">{dict.footer.contactTitle}</h4>
               <ul className="space-y-3 text-slate-400 text-sm">
                 <li>
                   <a href={whatsappContacto} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 hover:text-cyan-400 transition-colors">
@@ -1246,16 +1266,16 @@ export default function Home() {
                   <div className="w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center text-cyan-400">
                     <Globe size={16} />
                   </div>
-                  <span>Trabajo remoto · LATAM</span>
+                  <span>{dict.footer.remoteContact}</span>
                 </li>
               </ul>
             </div>
 
             {/* Column 4: CTA */}
             <div>
-              <h4 className="text-white font-semibold mb-4">¿Tienes un proyecto?</h4>
+              <h4 className="text-white font-semibold mb-4">{dict.footer.projectTitle}</h4>
               <p className="text-slate-400 text-sm mb-4">
-                Conversemos sobre cómo puedo ayudarte a digitalizar tu negocio.
+                {dict.footer.projectText}
               </p>
               <div className="flex flex-col gap-3">
                 <a
@@ -1265,14 +1285,14 @@ export default function Home() {
                   className="inline-flex items-center gap-2 px-5 py-3 bg-green-500 hover:bg-green-400 text-white font-semibold rounded-lg transition-all hover:scale-105 text-sm"
                 >
                   <WhatsAppIcon size={18} />
-                  Escribir por WhatsApp
+                  {dict.footer.waCta}
                 </a>
                 <a
                   href={emailContacto}
                   className="inline-flex items-center gap-2 px-5 py-3 border border-slate-700 hover:border-cyan-500 text-slate-300 hover:text-white font-semibold rounded-lg transition-all text-sm"
                 >
                   <Mail size={18} />
-                  Escribir un correo
+                  {dict.footer.emailCta}
                 </a>
               </div>
             </div>
@@ -1283,7 +1303,7 @@ export default function Home() {
 
           {/* Bottom Bar */}
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 text-slate-500 text-sm">
-            <span>© {new Date().getFullYear()} Francisco Dev. Todos los derechos reservados.</span>
+            <span>© {new Date().getFullYear()} Francisco Dev. {dict.footer.rights}</span>
           </div>
         </div>
       </footer>
@@ -1333,7 +1353,7 @@ export default function Home() {
           >
             <Image
               src={lightboxImages[lightboxIndex]}
-              alt="Proyecto expandido"
+              alt={dict.portfolio.lightboxAlt}
               width={1400}
               height={900}
               className="w-full h-auto max-h-[85vh] object-contain rounded-lg"

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -15,6 +15,11 @@ export const metadata: Metadata = {
   authors: [{ name: "Francisco Dev" }],
   alternates: {
     canonical: '/',
+    languages: {
+      'es-419': '/',
+      'en': '/en',
+      'x-default': '/',
+    },
   },
   openGraph: {
     title: "Francisco Dev | Del Caos Manual al Control Digital",

@@ -1,5 +1,12 @@
 packages:
   - .
+
+# sharp y unrs-resolver traen binarios precompilados: sus scripts de build no
+# hacen falta. pnpm 11 exige decidirlo explicitamente (allowBuilds); se deja
+# tambien la clave antigua para pnpm 10.
+allowBuilds:
+  sharp: false
+  unrs-resolver: false
 ignoredBuiltDependencies:
   - sharp
   - unrs-resolver
