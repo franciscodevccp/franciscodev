@@ -113,7 +113,13 @@ export interface Dict {
     subtitle: string;
     featuredBadge: string;
     igLabel: string;
-    featured: ProjectCard & { alt: string; chips: string[]; liveCta: string };
+    featured: ProjectCard & {
+      alt: string;
+      chips: string[];
+      liveCta: string;
+      /** Enlace al case study. Solo /en lo define; sin él no se muestra nada. */
+      caseStudy?: { label: string; href: string };
+    };
     hotel: ProjectCard;
     ehq: ProjectCard & { devBadge: string };
     archiva: ProjectCard;

@@ -784,6 +784,17 @@ export default function Landing({ dict, lang }: { dict: Dict; lang: "es" | "en" 
                       {dict.portfolio.featured.liveCta}
                       <ArrowRight size={14} />
                     </a>
+
+                    {/* Enlace al case study: solo si el idioma lo define (/en) */}
+                    {dict.portfolio.featured.caseStudy && (
+                      <Link
+                        href={dict.portfolio.featured.caseStudy.href}
+                        className="inline-flex items-center gap-1.5 mt-2 text-sm font-semibold text-cyan-600 hover:text-cyan-700 w-fit"
+                      >
+                        {dict.portfolio.featured.caseStudy.label}
+                        <ArrowRight size={14} />
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

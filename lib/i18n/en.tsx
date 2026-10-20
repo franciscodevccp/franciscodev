@@ -156,6 +156,7 @@ export const en: Dict = {
       ],
       chips: ["Next.js", "React", "TypeScript", "PostgreSQL", "Prisma", "WhatsApp API", "Cloudflare"],
       liveCta: "See it live",
+      caseStudy: { label: "Read the full case study", href: "/en/case-study/domos-el-tabo" },
     },
     hotel: {
       badge: "Hospitality",
